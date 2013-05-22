@@ -28,3 +28,10 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 5)
+
+    def test_number_of_over_5_deaths(self):
+        period = Period(start=date(2013, 1, 1), end=date(2013, 6, 1))
+        self._load_json_indicator('number_of_over_5_deaths')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, period)
+        self.assertEqual(value, 5)

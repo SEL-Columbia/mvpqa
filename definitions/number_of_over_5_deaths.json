@@ -1,0 +1,41 @@
+{
+  "description": "Number of Over-5 (non-maternal) deaths during the time period", 
+  "name": "number_of_over_5_deaths", 
+  "value": {
+    "sum": [
+      {
+        "calculation": {
+          "formula": "case form_dob_known == \"yes\": ((form_date_of_death - form_dob)/86400)/365, default: form_age",
+          "name": "calculated_age"
+        },
+        "count": true, 
+        "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+        "query": {
+          "calculated_age": {
+            "$gt": 5
+          },
+          "form_date_of_death": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          }
+        }, 
+        "source": "Death without Registration 2013-05-20.csv"
+      }, 
+      {
+        "count": true, 
+        "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+        "query": {
+          "form_dob": {
+            "$lt": "2008-05-01"
+          },
+          "form_date_of_death": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          },
+          "form_dob_known": "yes"
+        }, 
+        "source": "Death without Registration 2013-05-20.csv"
+      }
+    ]
+  }
+}
