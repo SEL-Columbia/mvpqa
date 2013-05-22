@@ -1,3 +1,4 @@
+import os
 import json
 
 from pybamboo.connection import Connection
@@ -9,6 +10,15 @@ BAMBOO_URL = "http://localhost:8080"
 class BambooIndicator(object):
     def __init__(self):
         self.connection = Connection(BAMBOO_URL)
+        self._set_sources()
+
+    def _set_sources(self):
+        path = os.path.join(
+            os.path.dirname(__file__), 'sources.json'
+        )
+        f = open(path)
+        self._sources_dict = json.loads(f.read())
+        self._sources = self._sources_dict['sources']
 
     def _calculation_exists(self, name, dataset):
         for calc in dataset.get_calculations():
@@ -24,6 +34,9 @@ class BambooIndicator(object):
             sum_value = 0
             for v in value['sum']:
                 dataset_id = v['dataset_id']
+                # dataset_id form sources.json is most recent
+                if dataset_id != self._sources[v['source']]:
+                    dataset_id = self._sources[v['source']]
                 dataset = Dataset(
                     dataset_id=dataset_id, connection=self.connection)
                 print dataset
