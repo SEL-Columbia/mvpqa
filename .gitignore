@@ -6,6 +6,7 @@
 *.ropeproject
 .DS_Store
 .noseids
+.tags
 
 # folders created by setuptools
 build
@@ -20,3 +21,6 @@ env
 
 # ignore pypi manifest
 MANIFEST
+
+data
+sources.json
