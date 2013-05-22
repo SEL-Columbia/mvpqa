@@ -1,0 +1,39 @@
+{
+  "description": "Number of Under-5 deaths (0-59 months) during the time period [inclusive of infant deaths]",
+  "name": "number_of_under_5_deaths",
+  "value": {
+    "sum": [
+      {
+        "calculation": {
+          "formula": "(form_date_of_death - form_dob)/86400",
+          "name": "num_of_days_alive"
+        },
+        "count": true,
+        "dataset_id": "22af70b95bd84fa6a02098de19ac0304",
+        "query": {
+          "form_meta_timeend": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          },
+          "form_reason": "death",
+          "num_of_days_alive": {
+            "$lt": 1875
+          }
+        },
+        "source": "Child List:Close.csv"
+      },
+      {
+        "count": true,
+        "dataset_id": "7b73c96e9179466b9a0cc16bce09e4f6",
+        "query": {
+          "form_meta_timeend": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          },
+          "form_termination_reason": "stillbirth"
+        },
+        "source": "Pregnancy Outcome.csv"
+      }
+    ]
+  }
+}
