@@ -27,7 +27,8 @@ def update_sources():
             if not os.path.exists(path):
                 raise Exception(u"%s does not exist," % path)
             dataset = Dataset(
-                path=path, connection=connection, data_format='csv')
+                path=path, connection=connection,
+                na_values=["---"], data_format='csv')
             sources_dict['sources'][k] = dataset.id
     f = open(sources, 'w')
     f.write(json.dumps(sources_dict, indent=2))
