@@ -39,7 +39,6 @@ class BambooIndicator(object):
                     dataset_id = self._sources[v['source']]
                 dataset = Dataset(
                     dataset_id=dataset_id, connection=self.connection)
-                print dataset
                 if 'calculation' in v:
                     # check or create calculations
                     if isinstance(v['calculation'], list):
@@ -47,11 +46,16 @@ class BambooIndicator(object):
                             calc_exists = self._calculation_exists(
                                 calculation.name, dataset)
                             if not calc_exists:
-                                dataset.add_calculation(json=calculation)
+                                dataset.add_calculation(
+                                    name=calculation['name'],
+                                    formula=calculation['formula'])
                     if isinstance(v['calculation'], dict):
                         if not self._calculation_exists(
                                 v['calculation']['name'], dataset):
-                            dataset.add_calculation(json=v['calculation'])
+                            calculation = v['calculation']
+                            dataset.add_calculation(
+                                name=calculation['name'],
+                                formula=calculation['formula'])
                 if 'query' in v:
                     query_string = json.dumps(v['query'])
                     query_string = query_string.replace(
