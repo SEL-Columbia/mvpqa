@@ -21,8 +21,11 @@ class BambooIndicator(object):
         self._sources = self._sources_dict['sources']
 
     def _calculation_exists(self, name, dataset):
-        for calc in dataset.get_calculations():
-            if calc['name'] == name:
+        calculations = dataset.get_calculations()
+        if 'error' in calculations:
+            raise Exception(calculations['error'])
+        for calc in calculations:
+            if isinstance(calc, dict) and calc['name'] == name:
                 return True
         return False
 
@@ -35,7 +38,8 @@ class BambooIndicator(object):
             for v in value['sum']:
                 dataset_id = v['dataset_id']
                 # dataset_id form sources.json is most recent
-                if dataset_id != self._sources[v['source']]:
+                if dataset_id != self._sources[v['source']]\
+                        and self._sources[v['source']] != "":
                     dataset_id = self._sources[v['source']]
                 dataset = Dataset(
                     dataset_id=dataset_id, connection=self.connection)
