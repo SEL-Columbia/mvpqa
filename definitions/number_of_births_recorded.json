@@ -9,11 +9,11 @@
         "query": {
           "opened_on": {
             "$gte": "{{period_start}}",
-            "$lt": "{{period_end}}"
+            "$lte": "{{period_end}}"
           },
           "d_dob_calc": {
             "$gte": "{{period_start}}",
-            "$lt": "{{period_end}}"
+            "$lte": "{{period_end}}"
           },
           "type": "child"
         }, 

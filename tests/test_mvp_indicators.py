@@ -11,7 +11,7 @@ class TestMvpIndicator(unittest.TestCase):
     def setUp(self):
         # TODO: load fixtures to bamboo
         self.bamboo_indicator = BambooIndicator()
-        self.period = Period(start=date(2013, 5, 1), end=date(2013, 6, 1))
+        self.period = Period.month_period(2013, 5)
 
     this_directory = os.path.dirname(__file__)
 

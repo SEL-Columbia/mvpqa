@@ -13,7 +13,7 @@
         "query": {
           "form_meta_timeend": {
             "$gte": "{{period_start}}",
-            "$lt": "{{period_end}}"
+            "$lte": "{{period_end}}"
           },
           "form_reason": "death",
           "num_of_days_alive": {
@@ -28,7 +28,7 @@
         "query": {
           "form_meta_timeend": {
             "$gte": "{{period_start}}",
-            "$lt": "{{period_end}}"
+            "$lte": "{{period_end}}"
           },
           "form_termination_reason": "stillbirth"
         },
