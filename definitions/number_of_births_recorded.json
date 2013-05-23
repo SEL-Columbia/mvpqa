@@ -1,0 +1,24 @@
+{
+  "description": "Number of births recorded during the time period", 
+  "name": "number_of_births_recorded", 
+  "value": {
+    "sum": [
+      {
+        "count": true, 
+        "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+        "query": {
+          "opened_on": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          },
+          "d_dob_calc": {
+            "$gte": "{{period_start}}",
+            "$lt": "{{period_end}}"
+          },
+          "type": "child"
+        }, 
+        "source": "case_export_all.csv"
+      }
+    ]
+  }
+}

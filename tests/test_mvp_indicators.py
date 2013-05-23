@@ -35,3 +35,9 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, period)
         self.assertEqual(value, 6)
+
+    def test_number_of_births_recorded(self):
+        self._load_json_indicator('number_of_births_recorded')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 65)
