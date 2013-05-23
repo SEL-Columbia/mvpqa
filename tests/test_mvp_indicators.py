@@ -34,4 +34,4 @@ class TestMvpIndicator(unittest.TestCase):
         self._load_json_indicator('number_of_over_5_deaths')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, period)
-        self.assertEqual(value, 5)
+        self.assertEqual(value, 6)
