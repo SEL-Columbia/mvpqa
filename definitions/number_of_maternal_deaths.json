@@ -1,0 +1,27 @@
+{
+  "description": "Number of Maternal deaths (pregnant or within 42 days of delivery) during the time period", 
+  "name": "number_of_maternal_deaths", 
+  "value": {
+    "sum": [
+      {
+        "calculation": {
+          "formula": "(form_meta_timeend - form_date_of_termination)/86400", 
+          "name": "termination_days_diff"
+        }, 
+        "count": true, 
+        "dataset_id": "7b73c96e9179466b9a0cc16bce09e4f6", 
+        "query": {
+          "termination_days_diff": {
+            "$lte": 42
+          }, 
+          "form_close_reason": "died", 
+          "form_meta_timeend": {
+            "$gte": "{{period_start}}", 
+            "$lte": "{{period_end}}"
+          }
+        }, 
+        "source": "Pregnancy Outcome.csv"
+      }
+    ]
+  }
+}
