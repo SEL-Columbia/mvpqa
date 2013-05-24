@@ -22,6 +22,8 @@ class TestMvpIndicator(unittest.TestCase):
         indicator_json = f.read()
         f.close()
         self.indicator = json.loads(indicator_json)
+        self.assertEqual(
+            self.indicator['name'], name)
 
     def test_number_of_under_5_deaths(self):
         self._load_json_indicator('number_of_under_5_deaths')
@@ -50,8 +52,6 @@ class TestMvpIndicator(unittest.TestCase):
 
     def test_number_of_neonatal_deaths_0_to_28_days(self):
         self._load_json_indicator('number_of_neonatal_deaths_0_to_28_days')
-        self.assertEqual(
-            self.indicator['name'], 'number_of_neonatal_deaths_0_to_28_days')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 4)
