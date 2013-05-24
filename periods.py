@@ -17,3 +17,9 @@ class Period(object):
         end_date = start_date + relativedelta(
             day=31, hour=23, minute=59, second=59, microsecond=999999)
         return cls(start_date, end_date)
+
+    @property
+    def ninety_days_before_end_of_period(self):
+        """Returns date ninety days before the periods end"""
+        dt = self.end + relativedelta(days=-90)
+        return dt
