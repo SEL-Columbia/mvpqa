@@ -1,0 +1,53 @@
+{
+  "description": "Proportion of Households receiving on-time routine visit within last 90 DAYS",
+  "name": "proportion_of_households_receiving_on_time_routine_visits_last_90_days",
+  "value": {
+    "numerator": [
+      {
+        "count": true,
+        "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+        "query": {
+          "opened_on": {
+            "$gte": "{{period.start}}",
+            "$lte": "{{period.end}}"
+          },
+          "d_dob_calc": {
+            "$gte": "{{period.start}}",
+            "$lte": "{{period.end}}"
+          },
+          "type": "child"
+        },
+        "source": "case_export_all.csv"
+      }
+    ],
+    "denominator": [
+      {
+        "count": true,
+        "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+        "query": {
+          "opened_on": {
+            "$lte": "{{period.end}}"
+          },
+          "type": "household",
+          "closed": false
+        },
+        "source": "case_export_all.csv"
+      },
+      {
+        "count": true,
+        "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+        "query": {
+          "opened_on": {
+            "$lte": "{{period.end}}"
+          },
+          "closed_on": {
+            "$gte": "{{period.start}}"
+          },
+          "type": "household",
+          "closed": true
+        },
+        "source": "case_export_all.csv"
+      }
+    ]
+  }
+}
