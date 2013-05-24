@@ -2,6 +2,10 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 
+def datetimeformat(value, format='%Y-%m-%d'):
+        return value.strftime(format)
+
+
 class Period(object):
     def __init__(self, start, end):
         self.start = start
