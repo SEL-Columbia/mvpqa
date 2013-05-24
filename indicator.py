@@ -1,10 +1,19 @@
 import os
 import json
 
+from jinja2 import Template
+from jinja2 import Environment
+
 from pybamboo.connection import Connection
 from pybamboo.dataset import Dataset
 
+from mvpqa.periods import datetimeformat
+
 BAMBOO_URL = "http://localhost:8080"
+
+# load custom dateformat to be used by templates
+env = Environment()
+env.filters['datetimeformat'] = datetimeformat
 
 
 class BambooIndicator(object):
@@ -62,10 +71,8 @@ class BambooIndicator(object):
                                 formula=calculation['formula'])
                 if 'query' in v:
                     query_string = json.dumps(v['query'])
-                    query_string = query_string.replace(
-                        '{{period_start}}', period.start.strftime("%Y-%m-%d"))
-                    query_string = query_string.replace(
-                        '{{period_end}}', period.end.strftime("%Y-%m-%d"))
+                    template = Template(query_string)
+                    query_string = template.render(period=period)
                     v['query'] = json.loads(query_string)
                 if 'count' in v and 'query' in v:
                     sum_value += dataset.get_data(
