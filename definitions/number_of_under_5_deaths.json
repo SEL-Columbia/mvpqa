@@ -12,8 +12,8 @@
         "dataset_id": "22af70b95bd84fa6a02098de19ac0304",
         "query": {
           "form_meta_timeend": {
-            "$gte": "{{period_start}}",
-            "$lte": "{{period_end}}"
+            "$gte": "{{period.start}}",
+            "$lte": "{{period.end}}"
           },
           "form_reason": "death",
           "num_of_days_alive": {
@@ -27,8 +27,8 @@
         "dataset_id": "7b73c96e9179466b9a0cc16bce09e4f6",
         "query": {
           "form_meta_timeend": {
-            "$gte": "{{period_start}}",
-            "$lte": "{{period_end}}"
+            "$gte": "{{period.start}}",
+            "$lte": "{{period.end}}"
           },
           "form_termination_reason": "stillbirth"
         },
