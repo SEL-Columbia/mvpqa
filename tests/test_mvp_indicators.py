@@ -69,4 +69,4 @@ class TestMvpIndicator(unittest.TestCase):
                                   'time_routine_visits_last_90_days')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value, 1)
+        self.assertEqual(value, 64.37)
