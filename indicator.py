@@ -70,6 +70,7 @@ class BambooIndicator(object):
                 dataset_id = self._sources[v['source']]
             dataset = Dataset(
                 dataset_id=dataset_id, connection=self.connection)
+            params = {}
             if 'calculation' in v:
                 # check or create calculations
                 if isinstance(v['calculation'], list):
@@ -92,7 +93,10 @@ class BambooIndicator(object):
                 template = Template(query_string)
                 query_string = template.render(period=period)
                 v['query'] = json.loads(query_string)
+                params['query'] = v['query']
             if 'count' in v and 'query' in v:
-                sum_value += dataset.get_data(
-                    query=v['query'], count=v['count'])
+                params['count'] = v['count']
+            if 'distinct' in v:
+                params['distinct'] = v['distinct']
+            sum_value += dataset.get_data(**params)
         return sum_value
