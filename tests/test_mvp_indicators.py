@@ -70,13 +70,3 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 1)
-
-    #Test if proportion work using
-    # Denominator: number_of_births_recorded = 65
-    # Numerator: number_of_under_5_deaths = 5
-    def test_proportions(self):
-        self._load_json_indicator('test_proportions')
-        value = self.bamboo_indicator\
-            .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value['denominator'], 65)
-        self.assertEqual(value['numerator'], 5)

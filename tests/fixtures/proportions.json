@@ -34,8 +34,8 @@
               "form_termination_reason": "stillbirth"
             },
             "source": "Pregnancy Outcome.csv"
-          } 
-        ], 
+          }
+        ],
         "denominator": [
             {
             "count": true,
@@ -52,8 +52,8 @@
               "type": "child"
             },
             "source": "case_export_all.csv"
-          }          
-        ] 
+          }
+        ]
     }
   }
 }
