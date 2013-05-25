@@ -42,9 +42,9 @@ class BambooIndicator(object):
         assert 'value' in indicator
         assert isinstance(indicator, dict)
         value = indicator['value']
-        results = 0
+        result = 0
         if 'sum' in value:
-            results = self._get_sum('sum', value, period)
+            result = self._get_sum('sum', value, period)
 
         if 'proportion' in value:
             proportion = value['proportion']
@@ -53,10 +53,12 @@ class BambooIndicator(object):
                 denominator = self._get_sum('denominator', proportion, period)
             if 'numerator' in proportion:
                 numerator = self._get_sum('numerator', proportion, period)
+            if denominator == 0:
+                result = 0
+            else:
+                result = round(100 * float(numerator) / float(denominator), 2)
 
-            results = {"numerator": numerator, "denominator": denominator}
-
-        return results
+        return result
 
     def _get_sum(self, key, value, period):
         sum_value = 0

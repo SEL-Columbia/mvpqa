@@ -35,5 +35,4 @@ class TestBambooIndicator(unittest.TestCase):
         self._load_json_indicator('proportions')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value['denominator'], 65)
-        self.assertEqual(value['numerator'], 5)
+        self.assertEqual(value, 7.69)
