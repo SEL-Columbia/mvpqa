@@ -94,3 +94,11 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 60.61)
+
+    def test_proportion_of_newborns_receiving_on_time_visits_7days(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_newborns_receiving_1st_chw_'
+                                  'checkup_within_7_days_of_birth')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 9.57)
