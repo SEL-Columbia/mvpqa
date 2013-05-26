@@ -1,6 +1,7 @@
 {
   "description": "Proportion of NEONATES (NEWBORN LESS THAN 30 DAYS OLD) receiving on-time routine visit within last 7 DAYS",
   "name": "proportion_of_neonates_receiving_on_time_routine_visit_within_7days",
+  "type": "Visits",
   "value": {
     "proportion": {
       "denominator": [

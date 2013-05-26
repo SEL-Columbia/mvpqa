@@ -1,6 +1,7 @@
 {
   "description": "Proportion of Households receiving on-time routine visit within last 90 DAYS", 
-  "name": "proportion_of_households_receiving_on_time_routine_visits_last_90_days", 
+  "name": "proportion_of_households_receiving_on_time_routine_visits_last_90_days",
+  "type": "Visits",
   "value": {
     "proportion": {
       "denominator": [

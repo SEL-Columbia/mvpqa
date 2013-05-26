@@ -1,6 +1,7 @@
 {
   "description": "Proportion of newborns receiving first CHW check-up within 7 days of birth during the time period",
   "name": "proportion_of_newborns_receiving_1st_chw_checkup_within_7_days_of_birth",
+  "type": "Visits",
   "value": {
     "proportion": {
       "denominator": [

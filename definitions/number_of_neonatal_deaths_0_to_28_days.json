@@ -1,6 +1,7 @@
 {
   "description": "Number of Neonatal deaths (0-28 days) during the time period",
   "name": "number_of_neonatal_deaths_0_to_28_days",
+  "type": "Vital Events",
   "value": {
     "sum": [
       {

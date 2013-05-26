@@ -1,6 +1,7 @@
 {
   "description": "Number of Over-5 (non-maternal) deaths during the time period",
   "name": "number_of_over_5_deaths",
+  "type": "Vital Events",
   "value": {
     "sum": [
       {

@@ -1,6 +1,7 @@
 {
   "description": "Number of births recorded during the time period",
   "name": "number_of_births_recorded",
+  "type": "Vital Events",
   "value": {
     "sum": [
       {

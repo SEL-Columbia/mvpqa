@@ -1,6 +1,7 @@
 {
   "description": "Proportion of PREGNANT WOMEN receiving on-time routine visit within last 30 DAYS", 
-  "name": "proportion_of_pregnant_receiving_on_time_routine_visits_last_30_days", 
+  "name": "proportion_of_pregnant_receiving_on_time_routine_visits_last_30_days",
+  "type": "Visits",
   "value": {
     "proportion": {
       "denominator": [
