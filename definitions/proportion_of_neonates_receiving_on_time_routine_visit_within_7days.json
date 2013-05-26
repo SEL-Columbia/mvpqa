@@ -1,0 +1,62 @@
+{
+  "description": "Proportion of NEONATES (NEWBORN LESS THAN 30 DAYS OLD) receiving on-time routine visit within last 7 DAYS",
+  "name": "proportion_of_neonates_receiving_on_time_routine_visit_within_7days",
+  "value": {
+    "proportion": {
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": false,
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        },
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": true,
+            "closed_on": {
+              "$gt": "{{period.thirty_days_before_end_of_period}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        }
+      ],
+      "numerator": [
+        {
+          "count": true,
+          "distinct": "form_case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+          "calculation": {
+            "formula": "(form_meta_timeend - form_dob)/86400",
+            "name": "age_at_visit"
+          },
+          "query": {
+            "form_meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "form_dob": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "age_at_visit": {
+              "$lt": 30
+            }
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ]
+    }
+  }
+}
