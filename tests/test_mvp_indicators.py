@@ -63,12 +63,57 @@ class TestMvpIndicator(unittest.TestCase):
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 1)
 
-    #Test if proportion work using
-    # Denominator: number_of_births_recorded = 65
-    # Numerator: number_of_under_5_deaths = 5
-    def test_proportions(self):
-        self._load_json_indicator('test_proportions')
+    def test_proportion_of_households_receiving_on_time_visits_last_90(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_households_receiving_on_'
+                                  'time_routine_visits_last_90_days')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value['denominator'], 65)
-        self.assertEqual(value['numerator'], 5)
+        self.assertEqual(value, 64.37)
+
+    def test_proportion_of_households_receiving_on_time_visits_last_30(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_households_receiving_on_'
+                                  'time_routine_visits_last_30_days')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 41.67)
+
+    def test_proportion_of_under5_receiving_on_time_visits_last_30(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_under5_receiving_on_'
+                                  'time_routine_visits_last_30_days')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 40.61)
+
+    def test_proportion_of_pregnant_receiving_on_time_visits_last_30(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_pregnant_receiving_on_'
+                                  'time_routine_visits_last_30_days')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 60.61)
+
+    def test_proportion_of_newborns_receiving_on_time_visits_7days(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_newborns_receiving_1st_chw_'
+                                  'checkup_within_7_days_of_birth')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 9.57)
+
+    def test_proportion_of_neonates_receiving_on_time_visits_7days(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_neonates_receiving'
+                                  '_on_time_routine_visit_within_7days')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 0.8)
+
+    def test_proportion_of_low_birth_weight_babies(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_low_birth_weight_babies')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 1.05)

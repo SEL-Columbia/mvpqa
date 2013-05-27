@@ -1,6 +1,7 @@
 {
   "description": "Number of Under-5 deaths (0-59 months) during the time period [inclusive of infant deaths]",
   "name": "number_of_under_5_deaths",
+  "type": "Vital Events",
   "value": {
     "sum": [
       {

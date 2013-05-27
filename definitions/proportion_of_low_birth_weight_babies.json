@@ -1,0 +1,54 @@
+{
+  "description": "Proportion of low birth weight (<2.5 kg) babies born during the time period (FOR BABIES WHOSE WEIGHT WAS RECORDED)",
+  "name": "proportion_of_low_birth_weight_babies",
+  "type": "Neonatal Health",
+  "value": {
+    "proportion": {
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "d_birth_weight_recorded": "yes",
+            "closed_on": {
+              "$gte": "{{period.start}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "d_dob_calc": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        }
+      ],
+      "numerator": [
+       {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "d_birth_weight_recorded": "yes",
+            "d_weight_at_birth": {
+              "$lt": 2.5
+            },
+            "closed_on": {
+              "$gte": "{{period.start}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "d_dob_calc": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        }
+      ]
+    }
+  }
+}

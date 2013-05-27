@@ -42,9 +42,9 @@ class BambooIndicator(object):
         assert 'value' in indicator
         assert isinstance(indicator, dict)
         value = indicator['value']
-        results = 0
+        result = 0
         if 'sum' in value:
-            results = self._get_sum('sum', value, period)
+            result = self._get_sum('sum', value, period)
 
         if 'proportion' in value:
             proportion = value['proportion']
@@ -53,10 +53,12 @@ class BambooIndicator(object):
                 denominator = self._get_sum('denominator', proportion, period)
             if 'numerator' in proportion:
                 numerator = self._get_sum('numerator', proportion, period)
+            if denominator == 0:
+                result = 0
+            else:
+                result = round(100 * float(numerator) / float(denominator), 2)
 
-            results = {"numerator": numerator, "denominator": denominator}
-
-        return results
+        return result
 
     def _get_sum(self, key, value, period):
         sum_value = 0
@@ -68,6 +70,8 @@ class BambooIndicator(object):
                 dataset_id = self._sources[v['source']]
             dataset = Dataset(
                 dataset_id=dataset_id, connection=self.connection)
+
+            params = {}
             if 'calculation' in v:
                 # check or create calculations
                 if isinstance(v['calculation'], list):
@@ -90,7 +94,10 @@ class BambooIndicator(object):
                 template = Template(query_string)
                 query_string = template.render(period=period)
                 v['query'] = json.loads(query_string)
+                params['query'] = v['query']
             if 'count' in v and 'query' in v:
-                sum_value += dataset.get_data(
-                    query=v['query'], count=v['count'])
+                params['count'] = v['count']
+            if 'distinct' in v:
+                params['distinct'] = v['distinct']
+            sum_value += dataset.get_data(**params)
         return sum_value

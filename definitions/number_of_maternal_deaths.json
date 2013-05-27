@@ -1,6 +1,7 @@
 {
   "description": "Number of Maternal deaths (pregnant or within 42 days of delivery) during the time period",
   "name": "number_of_maternal_deaths",
+  "type": "Vital Events",
   "value": {
     "sum": [
       {

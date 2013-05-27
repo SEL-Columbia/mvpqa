@@ -18,3 +18,12 @@ class TestTimePeriod(unittest.TestCase):
         self.assertEqual(period.start, datetime(2013, 05, 1))
         self.assertEqual(
             period.end, datetime(2013, 05, 31, 23, 59, 59, 999999))
+
+    def test_x_days_before_end_of_period(self):
+        period = Period.month_period(2013, 02)
+        ninety_days_ago_b4_eop = period.ninety_days_before_end_of_period
+        self.assertEqual(ninety_days_ago_b4_eop,
+                         datetime(2012, 11, 30, 23, 59, 59, 999999))
+        thirty_days_ago_b4_eop = period.thirty_days_before_end_of_period
+        self.assertEqual(thirty_days_ago_b4_eop,
+                         datetime(2013, 01, 29, 23, 59, 59, 999999))

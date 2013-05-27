@@ -1,0 +1,63 @@
+{
+  "description": "Proportion of newborns receiving first CHW check-up within 7 days of birth during the time period",
+  "name": "proportion_of_newborns_receiving_1st_chw_checkup_within_7_days_of_birth",
+  "type": "Visits",
+  "value": {
+    "proportion": {
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": false,
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "type": "pregnancy"
+          },
+          "source": "case_export_all.csv"
+        },
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": true,
+            "closed_on": {
+              "$gte": "{{period.thirty_days_before_end_of_period}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "type": "pregnancy"
+          },
+          "source": "case_export_all.csv"
+        }
+      ],
+      "numerator": [
+        {
+          "count": true,
+          "distinct": "form_case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+          "calculation": {
+            "formula": "(form_meta_timeend - form_dob)/86400",
+            "name": "age_at_visit"
+          },
+          "query": {
+            "form_meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "form_dob": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "age_at_visit": {
+              "$lte": 7
+            }
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ]
+    }
+  }
+}
