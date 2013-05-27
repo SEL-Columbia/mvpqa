@@ -1,0 +1,40 @@
+{
+  "description": "Proportion of Under-5's with positive RDT result who received antimalarial/ADT medication",
+  "name": "proportion_of_under5_with_positive_rdt_received_adt",
+  "type": "Malaria",
+  "value": {
+    "proportion": {
+      "numerator": [
+        {
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "fever",
+            "patient_available_referral_follow_on_rdt_result": "positive",
+            "patient_available_medication_type": "coartem"
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ],
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "fever",
+            "patient_available_referral_follow_on_rdt_result": "positive"
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ]
+    }
+  }
+}

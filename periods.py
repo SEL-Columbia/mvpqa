@@ -27,3 +27,8 @@ class Period(object):
     def thirty_days_before_end_of_period(self):
         """Returns date thirty days before the periods end"""
         return self.end + relativedelta(days=-30)
+   
+    @property
+    def sixweek_before_end_of_period(self):
+        """Returns date 42 days before the periods end"""
+        return self.end + relativedelta(days=-42)

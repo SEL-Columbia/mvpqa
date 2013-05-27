@@ -1,0 +1,38 @@
+{
+  "description": "Proportion of Under-5's with negative RDT result who received antimalarial/ADT medication",
+  "name": "proportion_of_under5_with_uncomplecated_fever_no_rdt",
+  "type": "Malaria",
+  "value": {
+    "proportion": {
+      "numerator": [
+        {
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "fever",
+            "patient_available_referral_follow_on_rdt_result": "rdt_not_available"
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ],
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "fever"
+          },
+          "source": "Child List:Visit.csv"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "description": "Proportion of Under-5's with positive RDT result who received antimalarial/ADT medication",
+  "name": "proportion_birth_health_facility",
+  "value": {
+    "proportion": {
+        "numerator": [
+            {
+            "count": true,
+            "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+            "query": {
+              "opened_on": {
+                "$gte": "{{period.start}}",
+                "$lte": "{{period.end}}"
+              },
+              "d_dob_calc": {
+                "$gte": "{{period.start}}",
+                "$lte": "{{period.end}}"
+              },
+              "type": "child",
+              "d_delivered_in_facility": "yes"
+            },
+            "source": "case_export_all.csv"
+            }
+        ], 
+        "denominator": [
+          {
+            "count": true,
+            "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+            "query": {
+              "opened_on": {
+                "$gte": "{{period.start}}",
+                "$lte": "{{period.end}}"
+              },
+              "d_dob_calc": {
+                "$gte": "{{period.start}}",
+                "$lte": "{{period.end}}"
+              },
+              "type": "child"
+            },
+            "source": "case_export_all.csv"
+          }    
+        ] 
+    }
+  }
+}
