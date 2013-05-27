@@ -36,18 +36,18 @@
       "numerator": [
         {
           "count": true,
-          "distinct": "form_case__case_id",
+          "distinct": "case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "calculation": {
-            "formula": "(form_meta_timeend - form_dob)/86400",
+            "formula": "(meta_timeend - dob)/86400",
             "name": "age_at_visit"
           },
           "query": {
-            "form_meta_timeend": {
+            "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
-            "form_dob": {
+            "dob": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },

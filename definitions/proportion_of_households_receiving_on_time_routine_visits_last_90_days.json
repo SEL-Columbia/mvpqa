@@ -36,10 +36,10 @@
       "numerator": [
         {
           "count": true,
-          "distinct": "form_case__case_id",
+          "distinct": "case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
           "query": {
-            "form_meta_timeend": {
+            "meta_timeend": {
               "$gte": "{{period.ninety_days_before_end_of_period}}", 
               "$lte": "{{period.end}}"
             }
