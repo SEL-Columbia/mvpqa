@@ -1,0 +1,43 @@
+{
+  "description": "Proportion of Under-5's with uncomplicated diarrhea who received zinc treatment", 
+  "name": "proportion_of_under5_with_uncomplicated_diarrhea_received_zinc",
+  "type": "Child Health",
+  "value": {
+    "proportion": {
+      "denominator": [
+        {
+          "count": true,
+          "distinct": "case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}", 
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "diarrhea"
+          }, 
+          "source": "Child List:Visit.csv"
+        }
+      ], 
+      "numerator": [
+        {
+          "count": true,
+          "distinct": "case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}", 
+              "$lte": "{{period.end}}"
+            },
+            "patient_available_immediate_danger_sign": "diarrhea",
+            "patient_available_medication_type": {
+              "$in": ["zinc", "ors zinc"]
+            }
+          }, 
+          "source": "Child List:Visit.csv"
+        }
+      ]
+    }
+  }
+}
+
