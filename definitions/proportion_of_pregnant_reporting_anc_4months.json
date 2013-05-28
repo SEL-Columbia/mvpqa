@@ -1,0 +1,54 @@
+{
+  "description": "Proportion of Pregnant women reporting no Antenatal Care visit by 4 months of gestation this time period",
+  "name": "proportion_of_pregnant_reporting_anc_4months",
+  "type": "Maternal Health",
+  "value": {
+    "proportion": {
+        "numerator": [
+            {
+            "calculation": {
+              "formula": "(edd - form_meta_timeend)/86400",
+              "name": "num_of_days"
+            },
+            "count": true,
+            "dataset_id": "1591fe35473644a0b776590127ed6890",
+            "query": {
+              "form_meta_timeend": {
+                "$gte": "{{period.start}}",
+                "$lte": "{{period.end}}"
+              },
+              "$or": [ 
+                    { "cur_num_anc": 0}, 
+                    { "cur_num_anc": ""}
+              ],
+              "num_of_days": {
+                "$lt": 150
+              }
+            },
+            "distinct": "case__case_id",
+            "source": "Pregnancy Visit.csv"
+          }
+        ], 
+        "denominator": [
+            {
+            "calculation": {
+              "formula": "(edd - form_meta_timeend)/86400",
+              "name": "num_of_days"
+            },
+            "count": true,
+            "dataset_id": "1591fe35473644a0b776590127ed6890",
+            "query": {
+              "form_meta_timeend": {
+                "$lte": "{{period.end}}"
+              },
+              "num_of_days": {
+                "$lt": 150
+              }
+            },
+            "distinct": "case__case_id",
+            "source": "Pregnancy Visit.csv"
+          }
+        ] 
+    }
+  }
+}
