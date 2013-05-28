@@ -162,7 +162,7 @@ class TestMvpIndicator(unittest.TestCase):
                                   'received_adt')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value, 90.48)
+        self.assertEqual(value, 93.02)
 
     def test_proportion_of_under5_with_uncomplecated_fever_received_rdt(self):
         self.period = Period.month_period(2013, 3)

@@ -1,0 +1,51 @@
+{
+  "description": "Proportion of Pregnant women receiving on-time routine check-up (every 6 weeks)",
+  "name": "proportion_of_pregnant_routine_checkup_6weeks",
+  "type": "Visits",
+  "value": {
+    "proportion": {
+        "numerator": [
+            {
+            "count": true,
+            "dataset_id": "1591fe35473644a0b776590127ed6890",
+            "query": {
+              "form_meta_timeend": {
+                "$gte": "{{period.sixweek_before_end_of_period}}"
+              }
+            },
+            "distinct": "case__case_id",
+            "source": "Pregnancy Visit.csv"
+          }
+        ], 
+        "denominator": [
+          {
+            "count": true,
+            "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+            "query": {
+              "opened_on": {
+                "$lte": "{{period.end}}"
+              },
+              "type": "pregnancy",
+              "closed": false
+            },
+            "source": "case_export_all.csv"
+          },
+          {
+            "count": true,
+            "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+            "query": {
+              "opened_on": {
+                "$lte": "{{period.end}}"
+              },
+              "closed_on": {
+                "$gte": "{{period.sixweek_before_end_of_period}}"
+              },
+              "type": "pregnancy",
+              "closed": true
+            },
+            "source": "case_export_all.csv"
+          }    
+        ] 
+    }
+  }
+}
