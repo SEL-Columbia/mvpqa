@@ -1,6 +1,7 @@
 {
   "description": "Proportion of Under-5's with positive RDT result who received antimalarial/ADT medication",
   "name": "proportion_birth_health_facility",
+  "type": "Maternal Health",
   "value": {
     "proportion": {
         "numerator": [
