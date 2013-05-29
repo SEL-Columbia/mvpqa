@@ -61,12 +61,12 @@ if dataset:
     mapper = Code(Template(mapper_str).render(fields))
     reducer = Code(Template(reducer_str).render(fields))
     query = json.loads(Template(query_str).render(fields))
+    query['%(meta_timeend)s' % fields]['$gte'] = period.start
+    query['%(meta_timeend)s' % fields]['$lte'] = period.end
     aggregate = json.loads(Template(aggregate_str).render(fields))
     results = db.observations.map_reduce(mapper, reducer, 'myresults_fp', query=query)
     if results.count():
         value = results.aggregate(aggregate)
         print  value['result'][0]['total']
-        assert value['result'][0]['total'] == 3141
-    else:
-        import ipdb; ipdb.set_trace()
+        assert value['result'][0]['total'] == 1641
     db.myresults_fp.drop()
