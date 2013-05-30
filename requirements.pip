@@ -1,6 +1,7 @@
+pyparsing==1.5.6
 python-dateutil
-pybamboo
 pymongo
+pybamboo
 bamboo-server
 nose
 jinja2

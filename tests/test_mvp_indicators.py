@@ -204,3 +204,11 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 130.23)
+
+    def test_proportion_of_over5_with_negative_rdt_receiving_adt(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_over5_with_negative_rdt_'
+                                  'received_adt')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 130.23)
