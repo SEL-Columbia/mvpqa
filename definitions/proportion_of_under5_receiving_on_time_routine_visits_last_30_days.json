@@ -1,49 +1,49 @@
 {
-  "description": "Proportion of UNDER-5 CHILDREN receiving on-time routine visit within last 30 DAYS", 
+  "description": "Proportion of UNDER-5 CHILDREN receiving on-time routine visit within last 30 DAYS",
   "name": "proportion_of_under5_receiving_on_time_routine_visits_last_30_days",
   "type": "Visits",
   "value": {
     "proportion": {
       "denominator": [
         {
-          "count": true, 
-          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
-            "closed": false, 
+            "closed": false,
             "opened_on": {
               "$lte": "{{period.end}}"
-            }, 
+            },
             "type": "child"
-          }, 
+          },
           "source": "case_export_all.csv"
-        }, 
+        },
         {
-          "count": true, 
-          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
-            "closed": true, 
+            "closed": true,
             "closed_on": {
               "$gte": "{{period.thirty_days_before_end_of_period}}"
-            }, 
+            },
             "opened_on": {
               "$lte": "{{period.end}}"
-            }, 
+            },
             "type": "child"
-          }, 
+          },
           "source": "case_export_all.csv"
         }
-      ], 
+      ],
       "numerator": [
         {
           "count": true,
           "distinct": "case__case_id",
-          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "query": {
             "meta_timeend": {
-              "$gte": "{{period.thirty_days_before_end_of_period}}", 
+              "$gte": "{{period.thirty_days_before_end_of_period}}",
               "$lte": "{{period.end}}"
             }
-          }, 
+          },
           "source": "Child List:Visit.csv"
         }
       ]
