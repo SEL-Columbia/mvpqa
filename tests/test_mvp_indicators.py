@@ -211,4 +211,4 @@ class TestMvpIndicator(unittest.TestCase):
                                   'received_adt')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value, 130.23)
+        self.assertEqual(value, -25.0)
