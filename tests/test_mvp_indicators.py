@@ -151,7 +151,8 @@ class TestMvpIndicator(unittest.TestCase):
 
     def test_proportion_of_pregnant_reporting_anc_4months(self):
         self.period = Period.month_period(2013, 3)
-        self._load_json_indicator('proportion_of_pregnant_reporting_anc_4months')
+        self._load_json_indicator('proportion_of_pregnant_reporting_anc'
+                                  '_4months')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 0.0)
@@ -172,7 +173,7 @@ class TestMvpIndicator(unittest.TestCase):
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 100.0)
 
-    def test_proportion_of_under5_with_uncomplecated_fever_received_rdt_positive(self):
+    def test_proportion_of_u5_with_uncmpl_fever_received_rdt_positive(self):
         self.period = Period.month_period(2013, 3)
         self._load_json_indicator('proportion_of_under5_with_uncomplecated_'
                                   'fever_received_rdt_positive')
@@ -195,3 +196,11 @@ class TestMvpIndicator(unittest.TestCase):
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
         self.assertEqual(value, 0.0)
+
+    def test_proportion_of_over5_with_positive_rdt_receiving_adt(self):
+        self.period = Period.month_period(2013, 3)
+        self._load_json_indicator('proportion_of_over5_with_positive_rdt_'
+                                  'received_adt')
+        value = self.bamboo_indicator\
+            .get_indicator_value(self.indicator, self.period)
+        self.assertEqual(value, 96.51)

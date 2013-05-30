@@ -4,6 +4,8 @@ import json
 from jinja2 import Template
 from jinja2 import Environment
 
+from pymongo import MongoClient
+
 from pybamboo.connection import Connection
 from pybamboo.dataset import Dataset
 
@@ -20,6 +22,7 @@ class BambooIndicator(object):
     def __init__(self):
         self.connection = Connection(BAMBOO_URL)
         self._set_sources()
+        self._db = MongoClient().bamboo_dev
 
     def _set_sources(self):
         path = os.path.join(
@@ -56,9 +59,26 @@ class BambooIndicator(object):
             if denominator == 0:
                 result = 0
             else:
-                result = round(100 * float(numerator) / float(denominator), 2)
+                result = round(
+                    100 * (float(numerator) / float(denominator)), 2)
 
+        if 'python' in value:
+            params = value['python']
+            definitionClass = self._get_definition(params['name'])
+            dataset_id = params['dataset_id']
+            # dataset_id form sources.json is most recent
+            if dataset_id != self._sources[params['source']]\
+                    and self._sources[params['source']] != "":
+                dataset_id = self._sources[params['source']]
+            defInstance = definitionClass(self._db, dataset_id)
+            result = defInstance.get_value(period)
         return result
+
+    def _get_definition(self, name):
+            m = __import__(
+                ''.join(['mvpqa.pydefinitions.', name]),
+                globals(), locals(), ['Definition'], -1)
+            return m.Definition
 
     def _get_sum(self, key, value, period):
         sum_value = 0

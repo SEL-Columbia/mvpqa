@@ -1,4 +1,6 @@
 python-dateutil
 pybamboo
+pymongo
+bamboo-server
 nose
 jinja2

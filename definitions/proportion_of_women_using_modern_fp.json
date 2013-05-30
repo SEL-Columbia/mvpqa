@@ -1,0 +1,47 @@
+{
+  "description": "Proportion of women 15-49 years old reporting use of modern family planning method at last visit this time period",
+  "name": "proportion_of_women_using_modern_fp",
+  "type": "Maternal Health",
+  "value": {
+    "proportion": {
+      "denominator": [
+        {
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "d_birth_weight_recorded": "yes",
+            "closed_on": {
+              "$gte": "{{period.start}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "d_dob_calc": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        }
+      ],
+      "numerator": [
+        {
+          "count": true,
+          "distinct": "form_case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "query": {
+            "form_meta_timeend": {
+              "$gte": "{{period.start}}", 
+              "$lte": "{{period.end}}"
+            },
+            "form_num_using_fp": {
+              "$ne": null
+            }
+          }, 
+          "source": "Household Visit.csv"
+        }
+      ]
+    }
+  }
+}
