@@ -1,17 +1,10 @@
 import json
-import sys
-import os
 
 from bamboo.models.dataset import Dataset
 from bamboo.models.observation import Observation
 from bamboo.core.frame import DATASET_ID
 
 from jinja2 import Template
-
-sys.path.append(
-    os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..'))
-)
-from mvpqa.periods import Period
 
 
 class Definition(object):
@@ -64,7 +57,7 @@ class Definition(object):
             fields = Observation.encoding(self.dataset)
             fields["dataset"] = self.dataset
             fields['dataset_id_field'] = fields[DATASET_ID]
-            fields['period'] = Period.month_period(2013, 3)
+            fields['period'] = period
             query = json.loads(Template(self.final_str).render(fields))
             meta_timeend = '%(meta_timeend)s' % fields
             query[0]['$match'][meta_timeend]['$gte'] = period.start
