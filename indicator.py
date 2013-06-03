@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from pybamboo.connection import Connection
 from pybamboo.dataset import Dataset
 
-from mvpqa.periods import datetimeformat
+from periods import datetimeformat
 
 BAMBOO_URL = "http://localhost:8080"
 
@@ -45,13 +45,13 @@ class BambooIndicator(object):
         assert 'value' in indicator
         assert isinstance(indicator, dict)
         value = indicator['value']
-        result = 0
+        result = result_num = result_den = None
         if 'sum' in value:
             result = self._get_sum('sum', value, period)
 
         if 'proportion' in value:
             proportion = value['proportion']
-            denominator = numerator = 0
+            denominator = numerator = None
             if 'denominator' in proportion:
                 denominator = self._get_sum('denominator', proportion, period)
             if 'numerator' in proportion:
@@ -61,6 +61,8 @@ class BambooIndicator(object):
             else:
                 result = round(
                     100 * (float(numerator) / float(denominator)), 2)
+            result_num = numerator
+            result_den = denominator
 
         if 'python' in value:
             params = value['python']
@@ -71,12 +73,16 @@ class BambooIndicator(object):
                     and self._sources[params['source']] != "":
                 dataset_id = self._sources[params['source']]
             defInstance = definitionClass(self._db, dataset_id)
-            result = defInstance.get_value(period)
-        return result
+            rs = defInstance.get_value(period)
+            if isinstance(rs, tuple):
+                result, result_num, result_den = rs
+            else:
+                result = rs
+        return result, result_num, result_den
 
     def _get_definition(self, name):
             m = __import__(
-                ''.join(['mvpqa.pydefinitions.', name]),
+                ''.join(['pydefinitions.', name]),
                 globals(), locals(), ['Definition'], -1)
             return m.Definition
 
@@ -97,7 +103,7 @@ class BambooIndicator(object):
                 if isinstance(v['calculation'], list):
                     for calculation in v['calculation']:
                         calc_exists = self._calculation_exists(
-                            calculation.name, dataset)
+                            calculation['name'], dataset)
                         if not calc_exists:
                             dataset.add_calculation(
                                 name=calculation['name'],
