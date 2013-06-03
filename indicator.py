@@ -9,7 +9,7 @@ from pymongo import MongoClient
 from pybamboo.connection import Connection
 from pybamboo.dataset import Dataset
 
-from mvpqa.periods import datetimeformat
+from periods import datetimeformat
 
 BAMBOO_URL = "http://localhost:8080"
 
@@ -76,7 +76,7 @@ class BambooIndicator(object):
 
     def _get_definition(self, name):
             m = __import__(
-                ''.join(['mvpqa.pydefinitions.', name]),
+                ''.join(['pydefinitions.', name]),
                 globals(), locals(), ['Definition'], -1)
             return m.Definition
 
@@ -97,7 +97,7 @@ class BambooIndicator(object):
                 if isinstance(v['calculation'], list):
                     for calculation in v['calculation']:
                         calc_exists = self._calculation_exists(
-                            calculation.name, dataset)
+                            calculation['name'], dataset)
                         if not calc_exists:
                             dataset.add_calculation(
                                 name=calculation['name'],
