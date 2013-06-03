@@ -29,4 +29,4 @@ class Definition(object):
             self._db, dataset=self.dataset)
         denominator = def2.get_value(period)
         value = round(100 * (float(numerator) / float(denominator)), 2)
-        return value
+        return value, numerator, denominator
