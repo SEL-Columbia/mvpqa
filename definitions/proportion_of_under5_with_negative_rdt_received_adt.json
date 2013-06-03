@@ -17,7 +17,7 @@
             "patient_available_referral_follow_on_rdt_result": "negative",
             "patient_available_medication_type": "coartem"
           },
-          "source": "Child List:Visit.csv"
+          "source": "Child List Visit.csv"
         }
       ],
       "denominator": [
@@ -32,7 +32,7 @@
             "patient_available_immediate_danger_sign": "fever",
             "patient_available_referral_follow_on_rdt_result": "negative"
           },
-          "source": "Child List:Visit.csv"
+          "source": "Child List Visit.csv"
         }
       ]
     }

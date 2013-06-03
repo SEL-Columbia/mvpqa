@@ -16,7 +16,7 @@
             },
             "patient_available_immediate_danger_sign": "diarrhea"
           }, 
-          "source": "Child List:Visit.csv"
+          "source": "Child List Visit.csv"
         }
       ], 
       "numerator": [
@@ -34,7 +34,7 @@
               "$in": ["ors", "ors zinc"]
             }
           }, 
-          "source": "Child List:Visit.csv"
+          "source": "Child List Visit.csv"
         }
       ]
     }

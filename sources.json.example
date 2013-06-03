@@ -1,8 +1,8 @@
 {
   "sources": {
     "case_export_all.csv": "", 
-    "Child List:Close.csv": "", 
-    "Child List:Visit.csv": "", 
+    "Child List Close.csv": "", 
+    "Child List Visit.csv": "", 
     "Pregnancy Outcome.csv": "", 
     "Pregnancy Visit.csv": "", 
     "Household Visit.csv": "",
