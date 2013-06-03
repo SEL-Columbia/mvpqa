@@ -26,7 +26,7 @@ class TestBambooIndicator(unittest.TestCase):
         self._load_json_indicator('indicator')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value, 5)
+        self.assertEqual(value, (5, None, None))
 
     #Test if proportion work using
     # Denominator: number_of_births_recorded = 65
@@ -35,4 +35,4 @@ class TestBambooIndicator(unittest.TestCase):
         self._load_json_indicator('proportions')
         value = self.bamboo_indicator\
             .get_indicator_value(self.indicator, self.period)
-        self.assertEqual(value, 7.69)
+        self.assertEqual(value, (7.69, 5, 65))
