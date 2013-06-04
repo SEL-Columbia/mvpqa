@@ -31,6 +31,7 @@ class BambooIndicator(object):
         f = open(path)
         self._sources_dict = json.loads(f.read())
         self._sources = self._sources_dict['sources']
+        self.connection = Connection(self._sources_dict['bamboo_server'])
 
     def _calculation_exists(self, name, dataset):
         calculations = dataset.get_calculations()
