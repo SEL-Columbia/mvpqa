@@ -5,7 +5,7 @@
   "value": {
     "proportion": {
       "numerator": [
-        {
+	{
           "calculation": [{
               "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
@@ -27,52 +27,52 @@
                 "$lt": 1825
              },
              "num_of_days_last_muac": {
-                "$lt": 30
+                "$lt": 90
              } 
           },
+          "distinct": "case__case_id",
           "source": "Child List Visit.csv"
         }
       ],
       "denominator": [
-            {
-            "calculation": {
-              "formula": "(form_date_of_death - form_dob)/86400",
-              "name": "num_of_days_alive"
-            },
-            "count": true,
-            "dataset_id": "22af70b95bd84fa6a02098de19ac0304",
-            "query": {
-              "form_meta_timeend": {
-                "$gte": "{{period.start}}",
-                "$lt": "{{period.end}}"
-              },
-              "form_reason": "death",
-              "num_of_days_alive": {
-                "$lt": 28
-              }
-            },
-           "source": "case_export_all.csv"
+        {
+          "calculation": [{
+              "formula": "(meta_timeend - dob)/86400",
+              "name": "num_of_days"
           },
-          {
-            "count": true,
-            "dataset_id": "7b73c96e9179466b9a0cc16bce09e4f6",
-            "query": {
-              "closed_on": {
-                "$gte": "{{period.thirty_days_before_end_of_period}}",
-                "$lte": "{{period.end}}"
-              },
-              "opened_on": {
-                "$lte": "{{period.end}}"
-              },              
-              "d_dob_calc": {
-                "$gte": "{{period.start}}",
-                "$lte": "{{period.end}}"
-              },
-              "closed": true,
-              "type": "child"
-           },
+          "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": false,
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+                "$gt": 180,
+                "$lt": 1825
+             },
+            "type": "child"
+          },
           "source": "case_export_all.csv"
-          }
+        },
+        {
+	  "count": true,
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "query": {
+            "closed": true,
+            "closed_on": {
+              "$gt": "{{period.thirty_days_before_end_of_period}}"
+            },
+            "d_dob_calc": {
+              "$gt": "{{period.abovesix_months_underfive}}"
+            },	
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            },
+            "type": "child"
+          },
+          "source": "case_export_all.csv"
+        }
       ]
     }
   }
