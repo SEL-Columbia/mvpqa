@@ -27,6 +27,9 @@ class Definition(object):
         numerator = def1.get_value(period)
         def2 = num_negative_rdt.Definition(
             self._db, dataset=self.dataset)
-        denominator = def2.get_value(period)
-        value = round(100 * (float(numerator) / float(denominator)), 2)
+        denominator = def2.get_value(period)       
+        if denominator == 0:
+            value = 0
+        else:
+            value = round(100 * (float(numerator) / float(denominator)), 2)
         return value, numerator, denominator
