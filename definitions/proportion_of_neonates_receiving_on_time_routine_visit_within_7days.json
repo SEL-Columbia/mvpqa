@@ -6,27 +6,40 @@
     "proportion": {
       "denominator": [
         {
+          "calculation": {
+            "formula": "(opened_on - d_dob_calc)/86400",
+            "name": "age_when_opened"
+          },
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
             "closed": false,
             "opened_on": {
-              "$lte": "{{period.end}}"
+              "$lte": "{{period.end}}",
+              "$gte": "{{period.start}}"
+            },
+           "age_when_opened": {
+              "$lt": 30
             },
             "type": "child"
           },
           "source": "case_export_all.csv"
         },
         {
+          "calculation": {
+            "formula": "(closed_on - d_dob_calc)/86400",
+            "name": "age_when_closed"
+          },
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
             "closed": true,
             "closed_on": {
-              "$gt": "{{period.thirty_days_before_end_of_period}}"
-            },
-            "opened_on": {
+              "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
+            },
+           "age_when_closed": {
+              "$lt": 30
             },
             "type": "child"
           },
