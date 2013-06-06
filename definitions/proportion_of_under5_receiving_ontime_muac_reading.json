@@ -19,7 +19,8 @@
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
-              "$lte": "{{period.end}}"
+              "$lte": "{{period.end}}",
+              "$gte": "{{period.start}}"
             },
             "cur_muac": {"$ne":""},
             "num_of_days": {
