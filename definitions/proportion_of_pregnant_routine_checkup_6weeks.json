@@ -1,7 +1,7 @@
 {
   "description": "Proportion of Pregnant women receiving on-time routine check-up (every 6 weeks)",
   "name": "proportion_of_pregnant_routine_checkup_6weeks",
-  "type": "Visits",
+  "type": "Maternal Health",
   "value": {
     "proportion": {
         "numerator": [
@@ -9,8 +9,9 @@
             "count": true,
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
-              "form_meta_timeend": {
-                "$gte": "{{period.sixweek_before_end_of_period}}"
+              "meta_timeend": {
+                "$gte": "{{period.sixweek_before_end_of_period}}",
+                "$lte": "{{period.end}}"
               }
             },
             "distinct": "case__case_id",
