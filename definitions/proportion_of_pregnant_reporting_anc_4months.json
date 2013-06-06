@@ -7,13 +7,14 @@
         "numerator": [
             {
             "calculation": {
-              "formula": "(edd - form_meta_timeend)/86400",
+              "formula": "(edd - meta_timeend)/86400",
               "name": "num_of_days"
             },
             "count": true,
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
-              "form_meta_timeend": {
+              "edd": {"$ne": ""},
+              "meta_timeend": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
               },
@@ -22,7 +23,8 @@
                     { "cur_num_anc": ""}
               ],
               "num_of_days": {
-                "$lt": 150
+                "$lt": 150,
+                "$gt": -1
               }
             },
             "distinct": "case__case_id",
@@ -32,17 +34,20 @@
         "denominator": [
             {
             "calculation": {
-              "formula": "(edd - form_meta_timeend)/86400",
+              "formula": "(edd - meta_timeend)/86400",
               "name": "num_of_days"
             },
             "count": true,
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
-              "form_meta_timeend": {
+              "edd": {"$ne": ""},
+              "meta_timeend": {
+                "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
               },
               "num_of_days": {
-                "$lt": 150
+                "$lt": 150,
+                "$gt": -1
               }
             },
             "distinct": "case__case_id",
