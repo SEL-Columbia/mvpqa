@@ -6,53 +6,66 @@
     "proportion": {
       "denominator": [
         {
+          "calculation": {
+            "formula": "(opened_on - d_dob_calc)/86400",
+            "name": "age_when_opened"
+          },
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
             "closed": false,
             "opened_on": {
-              "$lte": "{{period.end}}"
+              "$lte": "{{period.end}}",
+              "$gte": "{{period.start}}"
             },
-            "type": "pregnancy"
+           "age_when_opened": {
+              "$lt": 30
+            },
+            "type": "child"
           },
           "source": "case_export_all.csv"
         },
         {
+          "calculation": {
+            "formula": "(closed_on - d_dob_calc)/86400",
+            "name": "age_when_closed"
+          },
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
             "closed": true,
             "closed_on": {
-              "$gte": "{{period.thirty_days_before_end_of_period}}"
-            },
-            "opened_on": {
+              "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
-            "type": "pregnancy"
+           "age_when_closed": {
+              "$lt": 30
+            },
+            "type": "child"
           },
           "source": "case_export_all.csv"
         }
       ],
       "numerator": [
         {
-          "count": true,
-          "distinct": "case__case_id",
-          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "calculation": {
             "formula": "(meta_timeend - dob)/86400",
             "name": "age_at_visit"
           },
+          "count": true,
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
+          "distinct": "case__case_id",
           "query": {
-            "meta_timeend": {
-              "$gte": "{{period.start}}",
-              "$lte": "{{period.end}}"
+            "age_at_visit": {
+              "$lte": 7
             },
             "dob": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
-            "age_at_visit": {
-              "$lte": 7
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
             }
           },
           "source": "Child List Visit.csv"
@@ -61,3 +74,4 @@
     }
   }
 }
+
