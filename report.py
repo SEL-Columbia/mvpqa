@@ -15,8 +15,14 @@ DEFINITIONS_DIR = os.path.join(
 )
 
 
-def _generate_indicator_export(name, period):
+def _get_indicator_definitions(indicator_name=None):
     INDICATOR_DEFS = []
+    if isinstance(indicator_name, basestring):
+        full_path = os.path.join(DEFINITIONS_DIR, '%s.json' % indicator_name)
+        with open(full_path) as f:
+            obj = json.load(f)
+            INDICATOR_DEFS.append(obj)
+        return INDICATOR_DEFS
 
     for filename in os.listdir(DEFINITIONS_DIR):
         if filename.endswith('.json'):
@@ -29,8 +35,12 @@ def _generate_indicator_export(name, period):
                     pass
                 else:
                     INDICATOR_DEFS.append(obj)
+    return sorted(INDICATOR_DEFS, key=lambda k: k['type'])
 
-    INDICATOR_DEFS = sorted(INDICATOR_DEFS, key=lambda k: k['type'])
+
+def _generate_indicator_export(name, period, indicator_name=None):
+    INDICATOR_DEFS = _get_indicator_definitions(indicator_name)
+
     bi = BambooIndicator()
     RESULTS = [
         (u"MVP Indicators For The Period: %(start)s - %(end)s" % {
@@ -69,4 +79,7 @@ if __name__ == '__main__':
         year = int(arguments[1])
         month = int(arguments[2])
         period = Period.month_period(year, month)
-        _generate_indicator_export(name, period)
+        indicator = None
+        if arguments.__len__() > 3:
+            indicator_name = arguments[3]
+        _generate_indicator_export(name, period, indicator_name)
