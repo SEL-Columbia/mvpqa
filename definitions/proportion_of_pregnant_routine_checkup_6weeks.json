@@ -10,7 +10,7 @@
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
               "meta_timeend": {
-                "$gte": "{{period.sixweek_before_end_of_period}}",
+                "$gte": "{{period.six_weeks_before_end_of_period}}",
                 "$lte": "{{period.end}}"
               }
             },
@@ -39,7 +39,7 @@
                 "$lte": "{{period.end}}"
               },
               "closed_on": {
-                "$gte": "{{period.sixweek_before_end_of_period}}"
+                "$gte": "{{period.six_weeks_before_end_of_period}}"
               },
               "type": "pregnancy",
               "closed": true
