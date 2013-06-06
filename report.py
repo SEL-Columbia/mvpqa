@@ -79,7 +79,7 @@ if __name__ == '__main__':
         year = int(arguments[1])
         month = int(arguments[2])
         period = Period.month_period(year, month)
-        indicator = None
+        indicator_name = None
         if arguments.__len__() > 3:
             indicator_name = arguments[3]
         _generate_indicator_export(name, period, indicator_name)
