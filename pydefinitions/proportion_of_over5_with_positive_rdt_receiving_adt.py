@@ -27,7 +27,7 @@ class Definition(object):
         numerator = def1.get_value(period)
         def2 = num_other_positive.Definition(
             self._db, dataset=self.dataset)
-        denominator = def2.get_value(period)       
+        denominator = def2.get_value(period)
         if denominator == 0:
             value = 0
         else:

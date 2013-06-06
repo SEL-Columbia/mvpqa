@@ -40,7 +40,8 @@ class Definition(object):
     "{{meta_timeend}}": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
-                }
+                },
+    "{{num_other_positive}}": {"$gt": 0}
     }
     """
     aggregate_str = """

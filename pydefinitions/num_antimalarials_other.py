@@ -42,6 +42,7 @@ class Definition(object):
                 "$lte": "{{period.end}}"
                 },
     "{{num_other_positive}}": {"$gt": 0}
+    ,"{{num_antimalarials_other}}": {"$gt": 0}
     }
     """
     aggregate_str = """
