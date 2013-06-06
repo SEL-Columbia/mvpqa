@@ -36,10 +36,6 @@
       ],
       "denominator": [
         {
-          "calculation": [{
-              "formula": "(meta_timeend - dob)/86400",
-              "name": "num_of_days"
-          },
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
@@ -47,10 +43,10 @@
             "opened_on": {
               "$lte": "{{period.end}}"
             },
-            "num_of_days": {
-                "$gt": 180,
-                "$lt": 1825
-             },
+            "d_dob_calc": {
+              "$gt": "{{period.five_years_before_end_of_period}}",
+	      "$lt": "{{period.six_months_before_end_of_period}}"
+            },
             "type": "child"
           },
           "source": "case_export_all.csv"
@@ -64,7 +60,8 @@
               "$gt": "{{period.thirty_days_before_end_of_period}}"
             },
             "d_dob_calc": {
-              "$gt": "{{period.abovesix_months_underfive}}"
+              "$gt": "{{period.five_years_before_end_of_period}}",
+	      "$lt": "{{period.six_months_before_end_of_period}}"
             },	
             "opened_on": {
               "$lte": "{{period.end}}"
