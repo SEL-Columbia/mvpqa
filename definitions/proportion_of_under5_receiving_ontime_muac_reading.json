@@ -1,75 +1,82 @@
 {
-  "description": "Proportion of children aged 6-59 months receiving on-time routine (every 90 days) MUAC readings during the time period",
-  "name": "proportion_of_under5_receiving_ontime_muac_reading",
-  "type": "Child Health",
+  "description": "Proportion of children aged 6-59 months receiving on-time routine (every 90 days) MUAC readings during the time period", 
+  "name": "proportion_of_under5_receiving_ontime_muac_reading", 
+  "type": "Child Health", 
   "value": {
     "proportion": {
-      "numerator": [
-	{
-          "calculation": [{
-              "formula": "(meta_timeend - dob)/86400",
-              "name": "num_of_days"
-          },
-          {
-              "formula": "(meta_timeend - last_muac)/86400",
-              "name": "num_of_days_last_muac"
-          }
-          ],
-          "count": true,
-          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
-          "query": {
-            "meta_timeend": {
-              "$lte": "{{period.end}}",
-              "$gte": "{{period.start}}"
-            },
-            "cur_muac": {"$ne":""},
-            "num_of_days": {
-                "$gt": 180,
-                "$lt": 1825
-             },
-             "num_of_days_last_muac": {
-                "$lt": 90
-             } 
-          },
-          "distinct": "case__case_id",
-          "source": "Child List Visit.csv"
-        }
-      ],
       "denominator": [
         {
-          "count": true,
-          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "count": true, 
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
           "query": {
-            "closed": false,
+            "closed": false, 
+            "d_dob_calc": {
+              "$gt": "{{period.five_years_before_end_of_period}}", 
+              "$lte": "{{period.six_months_before_end_of_period}}"
+            }, 
             "opened_on": {
               "$lte": "{{period.end}}"
-            },
-            "d_dob_calc": {
-              "$gt": "{{period.five_years_before_end_of_period}}",
-	      "$lt": "{{period.six_months_before_end_of_period}}"
-            },
+            }, 
             "type": "child"
-          },
+          }, 
           "source": "case_export_all.csv"
-        },
+        }, 
         {
-	  "count": true,
-          "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "count": true, 
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
           "query": {
-            "closed": true,
+            "closed": true, 
             "closed_on": {
-              "$gt": "{{period.thirty_days_before_end_of_period}}"
-            },
+              "$gt": "{{period.thirty_days_before_end_of_period}}",
+              "$lte": "{{period.end}}"
+            }, 
             "d_dob_calc": {
-              "$gt": "{{period.five_years_before_end_of_period}}",
-	      "$lt": "{{period.six_months_before_end_of_period}}"
-            },	
+              "$gt": "{{period.five_years_before_end_of_period}}", 
+              "$lt": "{{period.six_months_before_end_of_period}}"
+            }, 
             "opened_on": {
               "$lte": "{{period.end}}"
-            },
+            }, 
             "type": "child"
-          },
+          }, 
           "source": "case_export_all.csv"
+        }
+      ], 
+      "numerator": [
+        {
+          "calculation": [
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+            }, 
+            {
+              "formula": "(meta_timeend - last_muac)/86400", 
+              "name": "num_of_days_last_muac"
+            }
+          ], 
+          "count": true, 
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d", 
+          "distinct": "case__case_id", 
+          "query": {
+            "cur_muac": {
+              "$ne": ""
+            }, 
+            "last_muac": {
+              "$gt": 0
+            }, 
+            "meta_timeend": {
+              "$gte": "{{period.start}}", 
+              "$lte": "{{period.end}}"
+            }, 
+            "num_of_days": {
+              "$gt": 180, 
+              "$lt": 1825
+            }, 
+            "num_of_days_last_muac": {
+              "$lt": 90
+            }
+          }, 
+          "source": "Child List Visit.csv"
         }
       ]
     }
