@@ -6,12 +6,20 @@
     "proportion": {
       "numerator": [
         {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$lt": 1825
             },
             "patient_available_immediate_danger_sign": "fever",
             "patient_available_referral_follow_on_rdt_result": "negative",
@@ -22,12 +30,21 @@
       ],
       "denominator": [
         {
-          "count": true,
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
+          "count": true, 
+          "distinct": "case__case_id", 
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$lt": 1825
             },
             "patient_available_immediate_danger_sign": "fever",
             "patient_available_referral_follow_on_rdt_result": "negative"
