@@ -6,6 +6,11 @@
     "proportion": {
       "denominator": [
         {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
           "count": true,
           "distinct": "case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
@@ -14,6 +19,9 @@
               "$gte": "{{period.start}}", 
               "$lte": "{{period.end}}"
             },
+            "num_of_days": {
+              "$lt": 1825
+            },
             "patient_available_immediate_danger_sign": "diarrhea"
           }, 
           "source": "Child List Visit.csv"
@@ -21,6 +29,11 @@
       ], 
       "numerator": [
         {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
           "count": true,
           "distinct": "case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
@@ -28,6 +41,9 @@
             "meta_timeend": {
               "$gte": "{{period.start}}", 
               "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$lt": 1825
             },
             "patient_available_immediate_danger_sign": "diarrhea",
             "patient_available_medication_type": {
