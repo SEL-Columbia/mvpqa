@@ -6,16 +6,37 @@
     "proportion": {
       "numerator": [
         {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
           "count": true,
+          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
-            "patient_available_immediate_danger_sign": "fever",
+            "num_of_days": {
+              "$lt": 1825
+            },
+            "$and": [
+              {
+                "patient_available_immediate_danger_sign": {
+		    "$regex": "fever",
+		    "$options": "i"
+		 }
+              },
+              {
+                "patient_available_immediate_danger_sign": {
+		    "$ne": "fever"
+		 }
+              }
+            ],
             "patient_available_referral_type": {
-              "$in": ["basic", "emergency"]
+              "$in": ["basic", "emergency", "take_to_clinic", "convenient"]
             }
           },
           "source": "Child List Visit.csv"
@@ -23,14 +44,35 @@
       ],
       "denominator": [
         {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
           "count": true,
+          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
-            "patient_available_immediate_danger_sign": "fever",
+            "num_of_days": {
+              "$lt": 1825
+            },
+            "$and": [
+              {
+                "patient_available_immediate_danger_sign": {
+		    "$regex": "fever",
+		    "$options": "i"
+		 }
+              },
+              {
+                "patient_available_immediate_danger_sign": {
+		    "$ne": "fever"
+		 }
+              }
+            ]
           },
           "source": "Child List Visit.csv"
         }
