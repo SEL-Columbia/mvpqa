@@ -1,0 +1,54 @@
+{
+  "description": "Proportion of children under 6 months reported as exclusively breast-fed at last visit during the time period",
+  "name": "proportion_of_under6_months_exclusively_breast_feeding",
+  "type": "Child Health",
+  "value": {
+    "proportion": {
+      "numerator": [
+        {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "distinct": "case__case_id", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$lt": 180
+            },
+            "patient_available_exclusive_breastfeeding": "yes"
+          },
+          "source": "Child List Visit.csv"
+        }
+      ],
+      "denominator": [
+        {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "distinct": "case__case_id", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$lt": 180
+            }
+          },
+          "source": "Child List Visit.csv"
+        }
+      ]
+    }
+  }
+}
