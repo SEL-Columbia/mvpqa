@@ -15,7 +15,9 @@
           "termination_days_diff": {
             "$lte": 42
           },
-          "form_close_reason": "died",
+          "form_close_reason": {
+              "$in": ["died", "mother died"]
+          },
           "form_meta_timeend": {
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"

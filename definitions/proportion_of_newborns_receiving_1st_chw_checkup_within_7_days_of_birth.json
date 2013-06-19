@@ -59,10 +59,6 @@
             "age_at_visit": {
               "$lte": 7
             },
-            "dob": {
-              "$gte": "{{period.start}}",
-              "$lte": "{{period.end}}"
-            },
             "meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"

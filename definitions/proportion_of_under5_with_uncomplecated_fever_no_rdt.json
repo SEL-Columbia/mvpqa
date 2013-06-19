@@ -12,7 +12,6 @@
               "name": "num_of_days"
           },
           "count": true,
-          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
@@ -36,7 +35,6 @@
               "name": "num_of_days"
           },
           "count": true,
-          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
