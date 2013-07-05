@@ -6,10 +6,9 @@
     "proportion": {
       "numerator": [
         {
-	  "calculation": 
-            {
-              "formula": "(meta_timeend - dob)/86400", 
-              "name": "num_of_days"
+          "calculation": {
+            "formula": "(meta_timeend - dob)/86400",
+            "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
@@ -24,18 +23,23 @@
             "$and": [
               {
                 "patient_available_immediate_danger_sign": {
-		    "$regex": "fever",
-		    "$options": "i"
-		 }
+                  "$regex": "fever",
+                  "$options": "i"
+                }
               },
               {
                 "patient_available_immediate_danger_sign": {
-		    "$ne": "fever"
-		 }
+                  "$ne": "fever"
+                }
               }
             ],
             "patient_available_referral_type": {
-              "$in": ["basic", "emergency", "take_to_clinic", "convenient"]
+              "$in": [
+                "basic",
+                "emergency",
+                "take_to_clinic",
+                "convenient"
+              ]
             }
           },
           "source": "Child List Visit.csv"
@@ -43,10 +47,9 @@
       ],
       "denominator": [
         {
-	  "calculation": 
-            {
-              "formula": "(meta_timeend - dob)/86400", 
-              "name": "num_of_days"
+          "calculation": {
+            "formula": "(meta_timeend - dob)/86400",
+            "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
@@ -61,14 +64,14 @@
             "$and": [
               {
                 "patient_available_immediate_danger_sign": {
-		    "$regex": "fever",
-		    "$options": "i"
-		 }
+                  "$regex": "fever",
+                  "$options": "i"
+                }
               },
               {
                 "patient_available_immediate_danger_sign": {
-		    "$ne": "fever"
-		 }
+                  "$ne": "fever"
+                }
               }
             ]
           },

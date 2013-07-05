@@ -24,8 +24,8 @@
             "patient_available_immediate_danger_sign": "fever",
             "patient_available_referral_follow_on_rdt_result": "negative",
             "patient_available_medication_type": {
-	      "$regex": "coartem",
-	      "$options": "i"
+				  "$regex": "coartem",
+				  "$options": "i"
             }
           },
           "source": "Child List Visit.csv"
