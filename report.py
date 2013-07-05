@@ -14,6 +14,10 @@ DEFINITIONS_DIR = os.path.join(
     SRC_DIR, 'definitions'
 )
 
+REPORTS_DIR = os.path.join(SRC_DIR, 'data', 'reports')
+if not os.path.exists(REPORTS_DIR):
+    os.makedirs(REPORTS_DIR)
+
 
 def _get_indicator_definitions(indicator_name=None):
     INDICATOR_DEFS = []
@@ -64,10 +68,12 @@ def _generate_indicator_export(name, period, indicator_name=None):
         'name': name,
         'start': period.start.strftime('%Y-%m-%d'),
         'end': period.end.strftime('%Y-%m-%d')}
+    filename = os.path.join(REPORTS_DIR, filename)
     with open(filename, 'wb') as f:
         csv_writer = csv.writer(
             f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerows(RESULTS)
+    print "\nSuccessfully generated %s." % filename
 
 if __name__ == '__main__':
     arguments = sys.argv[1:]
