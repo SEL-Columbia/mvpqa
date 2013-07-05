@@ -1,0 +1,58 @@
+{
+  "description": "Proportion of households ASSESSED (with at least one functioning Bednet per Sleeping sites [IF bednets observed >=1, 1, 0]",
+  "name": "proportion_of_households_assessed_with_atleast_one_functioning_bednet_persite",
+  "type": "Bednets",
+  "value": {
+    "proportion": {
+      "denominator": [
+		{
+          "count": true,
+          "distinct": "case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.thirty_days_before_end_of_period}}", 
+              "$lte": "{{period.end}}"
+            },
+			"$or": [
+              {
+                "do_malaria_assessment":  "yes"
+              },
+			  {
+                "malaria_assessment_num_sleeping_sites": {"$ne": ""}
+              },
+			  {
+                "malaria_assessment_num_bednets_nonfunction": {"$ne": ""}
+              },
+			  {
+                "malaria_assessment_num_sleeping_sites": {"$ne": ""}
+              },
+              {
+                "malaria_assessment_num_bednets_observerd": {"$ne": ""}
+              }
+            ]
+          }, 
+          "source": "Household Visit.csv"
+        }
+      ], 
+      "numerator": [
+        {
+          "count": true,
+          "distinct": "case__case_id",
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.thirty_days_before_end_of_period}}", 
+              "$lte": "{{period.end}}"
+            },
+			"malaria_assessment_num_bednets_observerd": {
+				"$gte": 1
+			}
+          }, 
+          "source": "Household Visit.csv"
+        }
+      ]
+    }
+  }
+}
+

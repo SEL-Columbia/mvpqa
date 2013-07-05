@@ -1,0 +1,12 @@
+{
+  "description": "Proportion of children Under-5 IN HOUSEHOLDS ASSESSED sleeping under a functioning Bednet last night",
+  "name": "proportion_of_under5_in_household_sleeping_under_functioning_bednets_last_night",
+  "type": "Bednets",
+  "value": {
+    "python": {
+        "name": "proportion_of_under5_in_household_sleeping_under_functioning_bednets_last_night",
+        "source": "Household Visit.csv",
+        "dataset_id": "5943c773179c4f0aa92620883c2bfa14"
+    }
+  }
+}

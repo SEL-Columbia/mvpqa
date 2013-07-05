@@ -1,0 +1,74 @@
+{
+  "description": "Proportion of children Under-1 receiving on-time scheduled check-ups during the time period",
+  "name": "proportion_of_under1_receiving_on_time_checkup_during_time_period",
+  "type": "Child Health",
+  "value": {
+    "proportion": {
+      "numerator": [
+        {
+	  "calculation": 
+            {
+              "formula": "(meta_timeend - dob)/86400", 
+              "name": "num_of_days"
+          },
+          "count": true,
+          "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+          "distinct": "case__case_id", 
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+            "num_of_days": {
+              "$gte": 0, 
+              "$lte": 365
+            }
+          },
+          "source": "Child List Visit.csv"
+        }
+      ],
+      "denominator": [
+        {
+          "count": true, 
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
+          "query": {
+            "closed": false, 
+            "d_dob_calc": {
+              "$gt": "{{period.one_year_before_end_of_period}}"
+            }, 
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            }, 
+            "type": "child"
+          }, 
+          "source": "case_export_all.csv"
+        }, 
+        {
+	  "calculation": 
+            {
+              "formula": "(closed_on - d_dob_calc)/86400", 
+              "name": "num_of_days"
+          },
+          "count": true, 
+          "dataset_id": "111bd86e63714f6fbdd42e4236675be4", 
+          "query": {
+            "closed": true, 
+            "closed_on": {
+              "$gt": "{{period.thirty_days_before_end_of_period}}",
+              "$lte": "{{period.end}}"
+            },
+            "opened_on": {
+              "$lte": "{{period.end}}"
+            }, 
+            "type": "child",
+            "num_of_days": {
+              "$gte": 0, 
+              "$lte": 365
+            }
+          }, 
+          "source": "case_export_all.csv"
+        }
+      ]
+    }
+  }
+}

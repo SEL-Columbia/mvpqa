@@ -1,0 +1,12 @@
+{
+  "description": "Proportion of Sleeping sites ASSESSED NOT covered by a functioning Bednet [if(bednet>=site,0,site-bednet)",
+  "name": "proportion_of_sleeping_sites_assessed_not_covered_by_functioning_bednets",
+  "type": "Bednets",
+  "value": {
+    "python": {
+        "name": "proportion_of_sleeping_sites_assessed_not_covered_by_functioning_bednets",
+        "source": "Household Visit.csv",
+        "dataset_id": "5943c773179c4f0aa92620883c2bfa14"
+    }
+  }
+}

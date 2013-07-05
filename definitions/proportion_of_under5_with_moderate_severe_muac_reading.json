@@ -1,0 +1,83 @@
+{
+    "description": "Proportion of children aged 6-59 months with moderate or severe wasting (MUAC < 125) at last MUAC reading this time period",
+    "name": "proportion_of_under5_with_moderate_severe_muac_reading",
+    "type": "Child Health",
+    "value": {
+        "proportion": {
+            "denominator": [
+                {
+                    "calculation": [
+                        {
+                            "formula": "(meta_timeend - dob)/86400",
+                            "name": "num_of_days"
+                        },
+                        {
+                            "formula": "(meta_timeend - last_muac)/86400",
+                            "name": "num_of_days_last_muac"
+                        }
+                    ],
+                    "count": true,
+                    "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+                    "distinct": "case__case_id",
+                    "query": {
+                        "cur_muac": {
+                            "$ne": ""
+                        },
+						"last_muac": {
+                            "$ne": ""
+                        },
+                        "meta_timeend": {
+                            "$gte": "{{period.start}}",
+                            "$lte": "{{period.end}}"
+                        },
+                        "num_of_days": {
+                            "$gt": 180,
+                            "$lt": 1825
+                        },
+                        "num_of_days_last_muac": {
+                            "$lt": 90
+                        }
+                    },
+                    "source": "Child List Visit.csv"
+                }
+            ],
+            "numerator": [
+                {
+                    "calculation": [
+                        {
+                            "formula": "(meta_timeend - dob)/86400",
+                            "name": "num_of_days"
+                        },
+                        {
+                            "formula": "(meta_timeend - last_muac)/86400",
+                            "name": "num_of_days_last_muac"
+                        }
+                    ],
+                    "count": true,
+                    "dataset_id": "77e796170c2f423fa920e85fad166f8d",
+                    "distinct": "case__case_id",
+                    "query": {
+                        "cur_muac": {
+                            "$ne": ""
+                        },
+                        "muac": {
+                            "$lte": 125
+                        },
+                        "meta_timeend": {
+                            "$gte": "{{period.start}}",
+                            "$lte": "{{period.end}}"
+                        },
+                        "num_of_days": {
+                            "$gt": 180,
+                            "$lt": 1825
+                        },
+                        "num_of_days_last_muac": {
+                            "$lt": 90
+                        }
+                    },
+                    "source": "Child List Visit.csv"
+                }
+            ]
+        }
+    }
+}
