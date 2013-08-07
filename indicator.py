@@ -19,15 +19,18 @@ env.filters['datetimeformat'] = datetimeformat
 
 
 class BambooIndicator(object):
-    def __init__(self):
+    def __init__(self, site=None):
         self.connection = Connection(BAMBOO_URL)
-        self._set_sources()
+        self._set_sources(site)
         self._db = MongoClient().bamboo_dev
 
-    def _set_sources(self):
-        path = os.path.join(
-            os.path.dirname(__file__), 'sources.json'
-        )
+    def _set_sources(self, site=None):
+        path = os.path.join(os.path.dirname(__file__), 'sources.json')
+        if isinstance(site, basestring):
+            path = os.path.join(
+                os.path.dirname(__file__), 'data',
+                site.lower(), 'sources.json'
+            )
         f = open(path)
         self._sources_dict = json.loads(f.read())
         self._sources = self._sources_dict['sources']

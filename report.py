@@ -45,7 +45,7 @@ def _get_indicator_definitions(indicator_name=None):
 def _generate_indicator_export(name, period, indicator_name=None):
     INDICATOR_DEFS = _get_indicator_definitions(indicator_name)
 
-    bi = BambooIndicator()
+    bi = BambooIndicator(site=name)
     RESULTS = [
         (u"MVP Indicators For The Period: %(start)s - %(end)s" % {
             'start': period.start.strftime('%Y-%m-%d'),
