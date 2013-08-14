@@ -9,6 +9,7 @@
           "formula": "(form_date_of_death - form_dob)/86400",
           "name": "num_of_days_alive"
         },
+        "distinct": "form_case__case_id",
         "count": true,
         "dataset_id": "22af70b95bd84fa6a02098de19ac0304",
         "query": {
@@ -18,6 +19,7 @@
           },
           "form_reason": "death",
           "num_of_days_alive": {
+            "$gte": 0,
             "$lt": 330
           }
         },
@@ -25,6 +27,7 @@
       },
       {
         "count": true,
+        "distinct": "form_case__case_id",
         "dataset_id": "7b73c96e9179466b9a0cc16bce09e4f6",
         "query": {
           "form_meta_timeend": {
