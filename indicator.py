@@ -129,5 +129,8 @@ class BambooIndicator(object):
                 params['count'] = v['count']
             if 'distinct' in v:
                 params['distinct'] = v['distinct']
+            val = dataset.get_data(**params)
+            if isinstance(val, dict):
+                raise Exception("Bamboo Error: %s" % val)
             sum_value += dataset.get_data(**params)
         return sum_value
