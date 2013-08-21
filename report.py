@@ -3,6 +3,8 @@ import sys
 import csv
 import json
 
+from pymongo.errors import OperationFailure
+
 sys.path.append(os.getcwd())
 
 from indicator import BambooIndicator
@@ -56,13 +58,19 @@ def _generate_indicator_export(name, period, indicator_name=None):
     ]
     for indicator_def in INDICATOR_DEFS:
         value = denominator = numerator = None
-        value, numerator, denominator = \
-            bi.get_indicator_value(indicator_def, period)
-        RESULTS.append(
-            (indicator_def['type'], indicator_def['description'],
-                value, numerator, denominator))
-        print (indicator_def['type'], indicator_def['name'],
-               value, numerator, denominator)
+        try:
+            value, numerator, denominator = \
+                bi.get_indicator_value(indicator_def, period)
+        except OperationFailure, e:
+            print e
+        except Exception, e:
+            raise e
+        else:
+            RESULTS.append(
+                (indicator_def['type'], indicator_def['description'],
+                    value, numerator, denominator))
+            print (indicator_def['type'], indicator_def['name'],
+                   value, numerator, denominator)
 
     filename = "%(name)s_mvp_indicator_%(start)s_to_%(end)s.csv" % {
         'name': name,
