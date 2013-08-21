@@ -63,8 +63,6 @@ def _generate_indicator_export(name, period, indicator_name=None):
                 bi.get_indicator_value(indicator_def, period)
         except OperationFailure, e:
             print e
-        except Exception, e:
-            raise e
         else:
             RESULTS.append(
                 (indicator_def['type'], indicator_def['description'],
