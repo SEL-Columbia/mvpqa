@@ -6,11 +6,12 @@
     "proportion": {
       "numerator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
+          "distinct": "case__case_id",
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
@@ -19,22 +20,24 @@
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
-              "$lt": 1825
+              "$lt": 1825,
+              "$gte": 0
             },
-            "patient_available_immediate_danger_sign": "fever",
-            "patient_available_referral_follow_on_rdt_result": "positive"
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "server_computed__mvp_indicators_rdt_result_value": "positive"
           },
           "source": "Child List Visit.csv"
         }
       ],
       "denominator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
           "count": true,
+          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
@@ -42,15 +45,16 @@
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
-              "$lt": 1825
+              "$lt": 1825,
+              "$gte": 0
             },
-            "patient_available_immediate_danger_sign": "fever",
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
             "$or": [
               {
-                "patient_available_referral_follow_on_rdt_result": "negative"
+                "server_computed__mvp_indicators_rdt_result_value": "negative"
               },
               {
-                "patient_available_referral_follow_on_rdt_result": "positive"
+                "server_computed__mvp_indicators_rdt_result_value": "positive"
               }
             ]
           },

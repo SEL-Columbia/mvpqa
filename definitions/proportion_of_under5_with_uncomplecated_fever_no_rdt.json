@@ -21,8 +21,8 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "fever",
-            "patient_available_referral_follow_on_rdt_result": "rdt_not_available"
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "server_computed__mvp_indicators_rdt_result_value": "rdt_not_available"
           },
           "source": "Child List Visit.csv"
         }
@@ -44,7 +44,7 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "fever"
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever"
           },
           "source": "Child List Visit.csv"
         }

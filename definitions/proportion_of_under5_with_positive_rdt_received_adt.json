@@ -21,8 +21,8 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "fever",
-            "patient_available_referral_follow_on_rdt_result": "positive",
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "server_computed__mvp_indicators_rdt_result_value": "positive",
             "patient_available_medication_type": {
 	      "$regex": "coartem",
 	      "$options": "i"
@@ -48,8 +48,8 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "fever",
-            "patient_available_referral_follow_on_rdt_result": "positive"
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "server_computed__mvp_indicators_rdt_result_value": "positive"
           },
           "source": "Child List Visit.csv"
         }

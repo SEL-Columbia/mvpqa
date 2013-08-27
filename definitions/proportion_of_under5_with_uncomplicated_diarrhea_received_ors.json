@@ -21,7 +21,7 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "diarrhea"
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea"
           }, 
           "source": "Child List Visit.csv"
         }
@@ -43,7 +43,7 @@
             "num_of_days": {
               "$lt": 1825
             },
-            "patient_available_immediate_danger_sign": "diarrhea",
+            "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea",
             "patient_available_medication_type": {
               "$in": ["ors", "ors zinc"]
             }

@@ -22,13 +22,13 @@
             },
             "$and": [
               {
-                "patient_available_immediate_danger_sign": {
+                "server_computed__mvp_indicators_immediate_danger_sign_value": {
                   "$regex": "fever",
                   "$options": "i"
                 }
               },
               {
-                "patient_available_immediate_danger_sign": {
+                "server_computed__mvp_indicators_immediate_danger_sign_value": {
                   "$ne": "fever"
                 }
               }
@@ -63,13 +63,13 @@
             },
             "$and": [
               {
-                "patient_available_immediate_danger_sign": {
+                "server_computed__mvp_indicators_immediate_danger_sign_value": {
                   "$regex": "fever",
                   "$options": "i"
                 }
               },
               {
-                "patient_available_immediate_danger_sign": {
+                "server_computed__mvp_indicators_immediate_danger_sign_value": {
                   "$ne": "fever"
                 }
               }
