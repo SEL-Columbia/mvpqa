@@ -15,13 +15,13 @@ class Definition(object):
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{num_other_positive}}": {"$gt": 0},
+    "{{server_computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
     "{{num_rdt_other}}": {"$gt": 0}
     }
     """
     project_str = """
     {"$project": {
-        "{{num_other_positive}}": 1,
+        "{{server_computed__mvp_indicators_num_other_positive_value}}": 1,
         "{{num_rdt_other}}": 1
     }}
     """
@@ -29,7 +29,7 @@ class Definition(object):
     {"$group":
     {"_id": 0, "total_num_rdt_other":
         {"$sum": "${{num_rdt_other}}"},
-    "total_num_other_positive": {"$sum": "${{num_other_positive}}"}
+    "total_num_other_positive": {"$sum": "${{server_computed__mvp_indicators_num_other_positive_value}}"}
     }}
     """
     project_str2 = """

@@ -15,21 +15,21 @@ class Definition(object):
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{num_other_positive}}": {"$gt": 0},
-    "{{num_antimalarials_other}}": {"$gt": 0}
+    "{{server_computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
+    "{{server_computed__mvp_indicators_num_antimalarials_other_value}}": {"$gt": 0}
     }
     """
     project_str = """
     {"$project": {
-        "{{num_other_positive}}": 1,
-        "{{num_antimalarials_other}}": 1
+        "{{server_computed__mvp_indicators_num_other_positive_value}}": 1,
+        "{{server_computed__mvp_indicators_num_antimalarials_other_value}}": 1
     }}
     """
     aggregate_str = """
     {"$group":
     {"_id": 0, "total_num_antimalarials":
-        {"$sum": "${{num_antimalarials_other}}"},
-    "total_num_other_positive": {"$sum": "${{num_other_positive}}"}
+        {"$sum": "${{server_computed__mvp_indicators_num_antimalarials_other_value}}"},
+    "total_num_other_positive": {"$sum": "${{server_computed__mvp_indicators_num_other_positive_value}}"}
     }}
     """
     project_str2 = """
