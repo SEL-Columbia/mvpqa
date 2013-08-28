@@ -1,43 +1,43 @@
 {
-  "description": "Proportion of Under-5's with uncomplicated diarrhea who recieved ORS", 
+  "description": "Proportion of Under-5's with uncomplicated diarrhea who recieved ORS",
   "name": "proportion_of_under5_with_uncomplicated_diarrhea_received_ors",
   "type": "Child Health",
   "value": {
     "proportion": {
       "denominator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
           "count": true,
-          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "query": {
             "meta_timeend": {
-              "$gte": "{{period.start}}", 
+              "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
             "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea"
-          }, 
+          },
           "source": "Child List Visit.csv"
         }
-      ], 
+      ],
       "numerator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
           "count": true,
-          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9", 
+          "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "query": {
             "meta_timeend": {
-              "$gte": "{{period.start}}", 
+              "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
@@ -45,9 +45,10 @@
             },
             "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea",
             "patient_available_medication_type": {
-              "$in": ["ors", "ors zinc"]
+                "$regex": "ors",
+                "$options": "i"
             }
-          }, 
+          },
           "source": "Child List Visit.csv"
         }
       ]
