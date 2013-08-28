@@ -11,7 +11,6 @@
               "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
-          "distinct": "case__case_id",
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
@@ -37,7 +36,6 @@
               "name": "num_of_days"
           },
           "count": true,
-          "distinct": "case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
             "meta_timeend": {
