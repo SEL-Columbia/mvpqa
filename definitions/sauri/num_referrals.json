@@ -1,0 +1,79 @@
+{
+  "description": "Number of Referrals",
+  "name": "num_referrals",
+  "type": "Vital Events",
+  "value": {
+    "sum": [
+      {
+        "count": true,
+        "dataset_id": "4e987362f56046659d4c8e7b51a000ca",
+        "query": {
+          "$or": [
+            {
+              "patient_available_referral_type": {
+                "$in": [
+                  "basic",
+                  "take_to_clinic",
+                  "convenient",
+                  "emergency"
+                ]
+              }
+            },
+            {
+              "server_computed__mvp_indicators_diarrhea_medication_value": {
+                "$options": "i",
+                "$regex": "ors"
+              },
+              "patient_available_referral_type": {
+                "$nin": [
+                  "basic",
+                  "take_to_clinic",
+                  "convenient",
+                  "emergency"
+                ]
+              }
+            },
+            {
+              "server_computed__mvp_indicators_fever_medication_value": {
+                "$options": "i",
+                "$regex": "coartem"
+              },
+              "patient_available_referral_type": {
+                "$nin": [
+                  "basic",
+                  "take_to_clinic",
+                  "convenient",
+                  "emergency"
+                ]
+              }
+            }
+          ],
+          "meta_timeend": {
+            "$gte": "{{period.start}}",
+            "$lte": "{{period.end}}"
+          }
+        },
+        "source": "Child List Visit.csv"
+      },
+        {
+          "count": true,
+          "dataset_id": "7c32e8a4e1514dbb941233d0d1f4f202",
+          "query": {
+            "meta_timeend": {
+              "$gte": "{{period.start}}",
+              "$lte": "{{period.end}}"
+            },
+              "referral_type": {
+                "$in": [
+                  "basic",
+                  "take_to_clinic",
+                  "convenient",
+                  "emergency"
+                ]
+              }
+          },
+          "source": "Pregnancy Visit.csv"
+        }
+    ]
+  }
+}
