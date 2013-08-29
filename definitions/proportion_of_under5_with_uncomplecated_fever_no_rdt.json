@@ -6,9 +6,9 @@
     "proportion": {
       "numerator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
           "count": true,
@@ -22,16 +22,19 @@
               "$lt": 1825
             },
             "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
-            "server_computed__mvp_indicators_rdt_result_value": "rdt_not_available"
+            "$or": [
+                {"server_computed__mvp_indicators_rdt_result_value": {"$regex": "rdt_not_available", "$options": "i"}},
+                {"server_computed__mvp_indicators_rdt_result_value": {"$regex":"rdt_not_conduct", "$options": "i"}}
+            ]
           },
           "source": "Child List Visit.csv"
         }
       ],
       "denominator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(meta_timeend - dob)/86400",
               "name": "num_of_days"
           },
           "count": true,
