@@ -24,7 +24,7 @@
             "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
             "server_computed__mvp_indicators_rdt_result_value": "negative",
             "server_computed__mvp_indicators_fever_medication_value": {
-				  "$regex": "coartem",
+				  "$regex": "anti_malarial",
 				  "$options": "i"
             }
           },

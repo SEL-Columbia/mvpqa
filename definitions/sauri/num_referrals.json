@@ -36,7 +36,7 @@
             {
               "server_computed__mvp_indicators_fever_medication_value": {
                 "$options": "i",
-                "$regex": "coartem"
+                "$regex": "anti_malarial"
               },
               "patient_available_referral_type": {
                 "$nin": [
