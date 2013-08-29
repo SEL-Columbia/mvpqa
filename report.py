@@ -21,10 +21,18 @@ if not os.path.exists(REPORTS_DIR):
     os.makedirs(REPORTS_DIR)
 
 
-def _get_indicator_definitions(indicator_name=None):
+def _get_indicator_definitions(indicator_name=None, site_name=None):
     INDICATOR_DEFS = []
     if isinstance(indicator_name, basestring):
-        full_path = os.path.join(DEFINITIONS_DIR, '%s.json' % indicator_name)
+        use_site_defintion = False
+        if isinstance(site_name, basestring):
+            full_path = os.path.join(
+                DEFINITIONS_DIR, site_name, '%s.json' % indicator_name)
+            if os.path.exists(full_path):
+                use_site_defintion = True
+        if not use_site_defintion:
+            full_path = os.path.join(
+                DEFINITIONS_DIR, '%s.json' % indicator_name)
         with open(full_path) as f:
             obj = json.load(f)
             INDICATOR_DEFS.append(obj)
@@ -32,7 +40,13 @@ def _get_indicator_definitions(indicator_name=None):
 
     for filename in os.listdir(DEFINITIONS_DIR):
         if filename.endswith('.json'):
-            full_path = os.path.join(DEFINITIONS_DIR, filename)
+            use_site_defintion = False
+            if isinstance(site_name, basestring):
+                full_path = os.path.join(DEFINITIONS_DIR, site_name, filename)
+                if os.path.exists(full_path):
+                    use_site_defintion = True
+            if not use_site_defintion:
+                full_path = os.path.join(DEFINITIONS_DIR, filename)
             with open(full_path) as f:
                 try:
                     obj = json.load(f)
@@ -45,7 +59,7 @@ def _get_indicator_definitions(indicator_name=None):
 
 
 def _generate_indicator_export(name, period, indicator_name=None):
-    INDICATOR_DEFS = _get_indicator_definitions(indicator_name)
+    INDICATOR_DEFS = _get_indicator_definitions(indicator_name, site_name=name)
 
     bi = BambooIndicator(site=name)
     RESULTS = [
