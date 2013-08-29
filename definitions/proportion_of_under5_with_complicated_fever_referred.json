@@ -33,7 +33,7 @@
                 }
               }
             ],
-            "patient_available_referral_type": {
+            "server_computed__mvp_indicators_referral_type_value": {
               "$in": [
                 "basic",
                 "emergency",
