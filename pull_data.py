@@ -93,6 +93,9 @@ if __name__ == '__main__':
     elif what == 'household-visit':
         report_id = get_report_id(domain, what)
         download_custom_reports(domain, report_id, "Household Visit.csv")
+    elif what == 'child-visit':
+        report_id = get_report_id(domain, what)
+        download_custom_reports(domain, report_id, "Child List Visit.csv")
     else:
         print (u"Missing or Incorrect action specified!"
                u" Expected cases, pregnancy-visit, ...\ni.e\n$"
