@@ -5,3 +5,4 @@ pybamboo
 bamboo-server
 nose
 jinja2
+requests
