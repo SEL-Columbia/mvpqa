@@ -3,7 +3,8 @@ COMMCARE_USERNAME = u''
 COMMCARE_PASSWORD = u''
 CUSTOM_REPORTS = {
     'mvp-ruhiira': {
-        'pregnancy-visit': '5b465124990a0e7c216b707109eb2cea'
+        'pregnancy-visit': '5b465124990a0e7c216b707109eb2cea',
+        'household-visit': 'b1817d5823cce017ff35fdfaaf4b2f40'
     }
 }
 
