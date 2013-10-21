@@ -55,8 +55,8 @@ def download_custom_reports(domain, report_id, report_name):
     if not report_id:
         raise Exception(u"Please ensure the pregnancy custom report id"
                         u" is configured in CUSTOM_REPORTS settings.")
-    url_path = "/a/%(domain)s/reports/export/custom/%(id)s/download/" % {
-        'domain': domain, 'id': report_id}
+    url_path = "/a/%(domain)s/reports/export/custom/%(id)s/download/"\
+        "?format=csv" % {'domain': domain, 'id': report_id}
     f = download_from_commcare(url_path)
     z = ZipFile(f, 'r')
     zdst = os.path.join('data', domain, 'latest')
