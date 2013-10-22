@@ -74,7 +74,8 @@ def download_form_data(domain, form_xmlns, report_name):
     if not form_xmlns:
         raise Exception(u"Please ensure the form xlmns "
                         u"is configured in FORMS_XLMNS in settings.")
-    url_path = ("/a/%(domain)s/reports/export/?export_tag=%(form_xmlns)s"
+    url_path = ("/a/%(domain)s/reports/export/"
+                "?export_tag=%%22%(form_xmlns)s%%22"
                 "&format=csv" % {'domain': domain, 'form_xmlns': form_xmlns})
     f = download_from_commcare(url_path)
     z = ZipFile(f, 'r')
