@@ -9,6 +9,13 @@ CUSTOM_REPORTS = {
     }
 }
 
+FDURL = 'http://openrosa.org/formdesigner/'
+FORM_XMLNS = {
+    'mvp-ruhiira': {
+        'child-close': FDURL + 'AC164B28-AECA-45C9-B7F6-E0668D5AF84B'
+    }
+}
+
 try:
     from .local_settings import *
 except:

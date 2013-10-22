@@ -8,7 +8,7 @@ from urlparse import urljoin
 from zipfile import ZipFile
 
 from config.settings import COMMCARE_URL, COMMCARE_USERNAME, COMMCARE_PASSWORD
-from utils import get_report_id
+from utils import get_report_id, get_form_xmlns
 
 AUTH = HTTPDigestAuth(COMMCARE_USERNAME, COMMCARE_PASSWORD)
 
@@ -47,13 +47,13 @@ def download_cases(domain):
 
 
 def download_custom_reports(domain, report_id, report_name):
-    """Downloads Pregnancy Visits data csv zip export from commcare.
+    """Downloads custom report data csv zip export from commcare.
     The extracted csv is placed in data/DOMAIN/latest/Pregnancy Visit.csv.
     :domain - commcare domain
     :report_id - custom report id for report
     """
     if not report_id:
-        raise Exception(u"Please ensure the pregnancy custom report id"
+        raise Exception(u"Please ensure the custom report id"
                         u" is configured in CUSTOM_REPORTS settings.")
     url_path = "/a/%(domain)s/reports/export/custom/%(id)s/download/"\
         "?format=csv" % {'domain': domain, 'id': report_id}
@@ -63,6 +63,25 @@ def download_custom_reports(domain, report_id, report_name):
     dst = os.path.join(zdst, report_name)
     if z.NameToInfo.keys():
         filename = z.NameToInfo.keys()[0]
+        src = os.path.join(zdst, filename)
+        z.extract(z.NameToInfo[filename], zdst)
+        if os.path.exists(src):
+            os.rename(src, dst)
+            print u"Successfully downloaded %s" % report_name
+
+
+def download_form_data(domain, form_xmlns, report_name):
+    if not form_xmlns:
+        raise Exception(u"Please ensure the form xlmns "
+                        u"is configured in FORMS_XLMNS in settings.")
+    url_path = ("/a/%(domain)s/reports/export/?export_tag=%(form_xmlns)s"
+                "&format=csv" % {'domain': domain, 'form_xmlns': form_xmlns})
+    f = download_from_commcare(url_path)
+    z = ZipFile(f, 'r')
+    zdst = os.path.join('data', domain, 'latest')
+    dst = os.path.join(zdst, report_name)
+    filename = '#.csv'
+    if '#.csv' in z.NameToInfo:
         src = os.path.join(zdst, filename)
         z.extract(z.NameToInfo[filename], zdst)
         if os.path.exists(src):
@@ -96,6 +115,9 @@ if __name__ == '__main__':
     elif what == 'child-visit':
         report_id = get_report_id(domain, what)
         download_custom_reports(domain, report_id, "Child List Visit.csv")
+    elif what == 'child-close':
+        form_xmlns = get_form_xmlns(domain, what)
+        download_form_data(domain, form_xmlns, "Child List Close.csv")
     else:
         print (u"Missing or Incorrect action specified!"
                u" Expected cases, pregnancy-visit, ...\ni.e\n$"
