@@ -90,35 +90,75 @@ def download_form_data(domain, form_xmlns, report_name):
             print u"Successfully downloaded %s" % report_name
 
 
-def download_pregancy_visits(domain, report_id):
-    download_custom_reports(domain, report_id, "Pregnancy Visit.csv")
+def download_pregancy_visits(domain, report='pregnancy-visit',
+                             name='Pregnancy Visit.csv'):
+    report_id = get_report_id(domain, report)
+    download_custom_reports(domain, report_id, name)
+
+
+def download_child_list_visit(domain, report='child-list',
+                              name='Child List Visit.csv'):
+    report_id = get_report_id(domain, report)
+    download_custom_reports(domain, report_id, name)
+
+
+def download_child_close(domain, report='child-close',
+                         name='Child List Close.csv'):
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
+
+
+def download_pregnancy_outcome(domain, report='pregnancy-outcome',
+                               name='Pregnancy Outcome.csv'):
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
+
+
+def download_death_without_registration(domain, report='death',
+                                        name='Death Without Registration.csv'):
+        form_xmlns = get_form_xmlns(domain, report)
+        download_form_data(domain, form_xmlns, name)
+
+
+def download_household_visit(domain, report='household-visit',
+                             name='Household Visit.csv'):
+    report_id = get_report_id(domain, report)
+    download_custom_reports(domain, report_id, name)
 
 
 if __name__ == '__main__':
     arguments = sys.argv[1:]
-    domain = what = None
+    domain = report = None
     if len(arguments) >= 1:
         domain = arguments[0]
     if len(arguments) >= 2:
-        what = arguments[1]
+        report = arguments[1]
     if not domain:
         print (u"domain arguement is expected! e.g\n$"
                u" python pull_data.py mvp-ruhiira ...")
         exit(0)
-    if what == 'cases' or what == 'case':
+    if report == 'cases' or report == 'case':
         download_cases(domain)
-    elif what == 'pregnancy-visit':
-        report_id = get_report_id(domain, what)
-        download_pregancy_visits(domain, report_id)
-    elif what == 'household-visit':
-        report_id = get_report_id(domain, what)
-        download_custom_reports(domain, report_id, "Household Visit.csv")
-    elif what == 'child-visit':
-        report_id = get_report_id(domain, what)
-        download_custom_reports(domain, report_id, "Child List Visit.csv")
-    elif what == 'child-close':
-        form_xmlns = get_form_xmlns(domain, what)
-        download_form_data(domain, form_xmlns, "Child List Close.csv")
+    elif report == 'pregnancy-visit':
+        download_pregancy_visits(domain)
+    elif report == 'pregnancy-outcome':
+        download_pregnancy_outcome(domain)
+    elif report == 'death':
+        download_death_without_registration(domain)
+    elif report == 'household-visit':
+        download_household_visit(domain)
+    elif report == 'child-visit':
+        download_child_list_visit(domain)
+    elif report == 'child-close':
+        download_child_close(domain)
+    elif report == 'all':
+        download_cases(domain)
+        download_pregancy_visits(domain)
+        download_pregnancy_outcome(domain)
+        download_death_without_registration(domain)
+        download_household_visit(domain)
+        download_child_list_visit(domain)
+        download_child_close(domain)
     else:
         print (u"Missing or Incorrect action specified!"
                u" Expected cases, pregnancy-visit, ...\ni.e\n$"
