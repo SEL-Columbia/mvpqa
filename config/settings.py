@@ -12,7 +12,9 @@ CUSTOM_REPORTS = {
 FDURL = 'http://openrosa.org/formdesigner/'
 FORM_XMLNS = {
     'mvp-ruhiira': {
-        'child-close': FDURL + 'AC164B28-AECA-45C9-B7F6-E0668D5AF84B'
+        'child-close': FDURL + 'AC164B28-AECA-45C9-B7F6-E0668D5AF84B',
+        'pregnancy-outcome': FDURL + '01EB3014-71CE-4EBE-AE34-647EF70A55DE',
+        'death': FDURL + 'b3af1fddeb661ee045fef1e764995440ea8f057f',
     }
 }
 
