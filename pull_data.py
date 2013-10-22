@@ -96,7 +96,7 @@ def download_pregancy_visits(domain, report='pregnancy-visit',
     download_custom_reports(domain, report_id, name)
 
 
-def download_child_list_visit(domain, report='child-list',
+def download_child_list_visit(domain, report='child-visit',
                               name='Child List Visit.csv'):
     report_id = get_report_id(domain, report)
     download_custom_reports(domain, report_id, name)
