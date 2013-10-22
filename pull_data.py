@@ -126,6 +126,18 @@ def download_household_visit(domain, report='household-visit',
     download_custom_reports(domain, report_id, name)
 
 
+HELP_MSG = (u"Missing or Incorrect action specified!"
+            u" Expected cases, pregnancy-visit, ...\ni.e"
+            u"\n$ python pull_data.py %(domain)s all"
+            u"\n$ python pull_data.py %(domain)s cases"
+            u"\n$ python pull_data.py %(domain)s child-visit"
+            u"\n$ python pull_data.py %(domain)s child-close"
+            u"\n$ python pull_data.py %(domain)s death"
+            u"\n$ python pull_data.py %(domain)s household visit"
+            u"\n$ python pull_data.py %(domain)s pregnancy-visit"
+            u"\n$ python pull_data.py %(domain)s pregnancy-outcome")
+
+
 if __name__ == '__main__':
     arguments = sys.argv[1:]
     domain = report = None
@@ -134,23 +146,23 @@ if __name__ == '__main__':
     if len(arguments) >= 2:
         report = arguments[1]
     if not domain:
-        print (u"domain arguement is expected! e.g\n$"
-               u" python pull_data.py mvp-ruhiira ...")
+        print (u"domain arguement is expected! e.g\n %s" %
+               (HELP_MSG % {'domain': 'replace_with_commcare_domain'}))
         exit(0)
     if report == 'cases' or report == 'case':
         download_cases(domain)
-    elif report == 'pregnancy-visit':
-        download_pregancy_visits(domain)
-    elif report == 'pregnancy-outcome':
-        download_pregnancy_outcome(domain)
-    elif report == 'death':
-        download_death_without_registration(domain)
-    elif report == 'household-visit':
-        download_household_visit(domain)
     elif report == 'child-visit':
         download_child_list_visit(domain)
     elif report == 'child-close':
         download_child_close(domain)
+    elif report == 'death':
+        download_death_without_registration(domain)
+    elif report == 'household-visit':
+        download_household_visit(domain)
+    elif report == 'pregnancy-visit':
+        download_pregancy_visits(domain)
+    elif report == 'pregnancy-outcome':
+        download_pregnancy_outcome(domain)
     elif report == 'all':
         download_cases(domain)
         download_pregancy_visits(domain)
@@ -160,6 +172,4 @@ if __name__ == '__main__':
         download_child_list_visit(domain)
         download_child_close(domain)
     else:
-        print (u"Missing or Incorrect action specified!"
-               u" Expected cases, pregnancy-visit, ...\ni.e\n$"
-               u"python pull_data.py mvp-ruhiira cases")
+        print HELP_MSG % domain
