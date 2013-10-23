@@ -119,7 +119,7 @@ def download_pregnancy_outcome(domain, report='pregnancy-outcome',
 
 
 def download_death_without_registration(domain, report='death',
-                                        name='Death Without Registration.csv'):
+                                        name='Death without Registration.csv'):
     form_xmlns = get_form_xmlns(domain, report)
     download_form_data(domain, form_xmlns, name)
 
