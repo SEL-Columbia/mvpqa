@@ -6,7 +6,7 @@
     "sum": [
       {
         "calculation": {
-          "formula": "(form_date_of_death - form_dob)/86400",
+          "formula": "(computed__mvp_indicators_date_of_death_value - computed__mvp_indicators_child_dob_value)/86400",
           "name": "num_of_days_alive"
         },
         "count": true,
@@ -17,10 +17,11 @@
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"
           },
-          "form_reason": "death",
+          "doc_type": "XFormInstance",
+          "computed__mvp_indicators_close_reason_value": "death",
           "num_of_days_alive": {
             "$gte": 0,
-            "$lt": 1875
+            "$lt": 1825
           }
         },
         "source": "Child List Close.csv"
@@ -34,7 +35,8 @@
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"
           },
-          "form_termination_reason": "stillbirth"
+          "doc_type": "XFormInstance",
+          "computed__mvp_indicators_close_reason_value": "stillbirth"
         },
         "source": "Pregnancy Outcome.csv"
       }
