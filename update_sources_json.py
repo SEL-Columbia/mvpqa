@@ -33,10 +33,14 @@ def update_sources(site):
             path = os.path.join(sources_dir, k)
             if not os.path.exists(path):
                 raise Exception(u"%s does not exist," % path)
-            dataset = Dataset(
-                path=path, connection=connection,
-                na_values=["---", "None"], data_format='csv')
-            sources_dict['sources'][k] = dataset.id
+            try:
+                dataset = Dataset(
+                    path=path, connection=connection,
+                    na_values=["---", "None"], data_format='csv')
+            except Exception, e:
+                print u"Exception: Publishing %s failed!\n\t%s" % (k, e)
+            else:
+                sources_dict['sources'][k] = dataset.id
     f = open(sources, 'w')
     f.write(json.dumps(sources_dict, indent=2))
     f.close()
