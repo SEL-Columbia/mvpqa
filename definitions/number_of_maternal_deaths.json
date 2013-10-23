@@ -6,7 +6,7 @@
     "sum": [
       {
         "calculation": {
-          "formula": "(form_meta_timeend - form_date_of_termination)/86400",
+          "formula": "(form_meta_timeend - computed__mvp_indicators_pregnancy_termination_value)/86400",
           "name": "termination_days_diff"
         },
         "count": true,
@@ -15,8 +15,9 @@
           "termination_days_diff": {
             "$lte": 42
           },
-          "form_close_reason": {
-              "$in": ["died", "mother died"]
+          "doc_type": "XFormInstance",
+          "computed__mvp_indicators_close_reason_value": {
+              "$in": ["died"]
           },
           "form_meta_timeend": {
             "$gte": "{{period.start}}",
