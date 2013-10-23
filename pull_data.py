@@ -8,7 +8,7 @@ from urlparse import urljoin
 from zipfile import ZipFile
 
 from config.settings import COMMCARE_URL, COMMCARE_USERNAME, COMMCARE_PASSWORD
-from utils import get_report_id, get_form_xmlns
+from utils import get_form_xmlns
 
 AUTH = HTTPDigestAuth(COMMCARE_USERNAME, COMMCARE_PASSWORD)
 
@@ -92,14 +92,18 @@ def download_form_data(domain, form_xmlns, report_name):
 
 def download_pregancy_visits(domain, report='pregnancy-visit',
                              name='Pregnancy Visit.csv'):
-    report_id = get_report_id(domain, report)
-    download_custom_reports(domain, report_id, name)
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
+    # report_id = get_report_id(domain, report)
+    # download_custom_reports(domain, report_id, name)
 
 
 def download_child_list_visit(domain, report='child-visit',
                               name='Child List Visit.csv'):
-    report_id = get_report_id(domain, report)
-    download_custom_reports(domain, report_id, name)
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
+    # report_id = get_report_id(domain, report)
+    # download_custom_reports(domain, report_id, name)
 
 
 def download_child_close(domain, report='child-close',
@@ -116,14 +120,16 @@ def download_pregnancy_outcome(domain, report='pregnancy-outcome',
 
 def download_death_without_registration(domain, report='death',
                                         name='Death Without Registration.csv'):
-        form_xmlns = get_form_xmlns(domain, report)
-        download_form_data(domain, form_xmlns, name)
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
 
 
 def download_household_visit(domain, report='household-visit',
                              name='Household Visit.csv'):
-    report_id = get_report_id(domain, report)
-    download_custom_reports(domain, report_id, name)
+    form_xmlns = get_form_xmlns(domain, report)
+    download_form_data(domain, form_xmlns, name)
+    # report_id = get_report_id(domain, report)
+    # download_custom_reports(domain, report_id, name)
 
 
 HELP_MSG = (u"Missing or Incorrect action specified!"
