@@ -15,6 +15,7 @@
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"
           },
+          "doc_type": "XFormInstance",
           "form_dob_known": "no"
         },
         "source": "Death without Registration.csv"
@@ -34,6 +35,7 @@
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"
           },
+          "doc_type": "XFormInstance",
           "form_dob_known": "yes"
         },
         "source": "Death without Registration.csv"
