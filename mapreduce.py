@@ -15,7 +15,7 @@ db = MongoClient().bamboo_dev
 mapper_str = """
 function(){
     value = this;
-    key = this['{{case__case_id}}'];
+    key = this['{{form_case__case_id}}'];
     if(isNaN(value["{{num_using_fp}}"])){
         value["{{num_using_fp}}"] = 0;
     }
@@ -26,8 +26,8 @@ function(){
 reducer_str = """
 function(key, values){
     values.sort(function(a, b){
-        a = a["{{meta_timeend}}"];
-        b = b["{{meta_timeend}}"];
+        a = a["{{form_meta_timeend}}"];
+        b = b["{{form_meta_timeend}}"];
         return a > b? -1: a < b? 1: 0;
     });
     var reducedValue = values[0];
@@ -40,7 +40,7 @@ function(key, values){
 
 query_str = """
 {"{{dataset_id_field}}": "{{dataset.dataset_id}}",
-"{{meta_timeend}}": {
+"{{form_meta_timeend}}": {
               "$gte": "{{period.start}}", 
               "$lte": "{{period.end}}"
             }
@@ -61,8 +61,8 @@ if dataset:
     mapper = Code(Template(mapper_str).render(fields))
     reducer = Code(Template(reducer_str).render(fields))
     query = json.loads(Template(query_str).render(fields))
-    query['%(meta_timeend)s' % fields]['$gte'] = period.start
-    query['%(meta_timeend)s' % fields]['$lte'] = period.end
+    query['%(form_meta_timeend)s' % fields]['$gte'] = period.start
+    query['%(form_meta_timeend)s' % fields]['$lte'] = period.end
     aggregate = json.loads(Template(aggregate_str).render(fields))
     results = db.observations.map_reduce(mapper, reducer, 'myresults_fp', query=query)
     if results.count():

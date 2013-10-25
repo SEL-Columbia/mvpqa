@@ -6,45 +6,47 @@
     "proportion": {
       "numerator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
-            "server_computed__mvp_indicators_rdt_result_value": "rdt_not_available"
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "computed__mvp_indicators_rdt_result_value": "rdt_not_available"
           },
           "source": "Child List Visit.csv"
         }
       ],
       "denominator": [
         {
-	  "calculation": 
+	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400", 
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever"
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "fever"
           },
           "source": "Child List Visit.csv"
         }

@@ -9,12 +9,12 @@
             "count": true,
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
-              "meta_timeend": {
+              "form_meta_timeend": {
                 "$gte": "{{period.six_weeks_before_end_of_period}}",
                 "$lte": "{{period.end}}"
               }
             },
-            "distinct": "case__case_id",
+            "distinct": "form_case__case_id",
             "source": "Pregnancy Visit.csv"
           }
         ], 

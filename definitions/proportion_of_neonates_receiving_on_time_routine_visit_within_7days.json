@@ -19,7 +19,7 @@
               "$gte": "{{period.start}}"
             },
            "age_when_opened": {
-              "$lt": 30
+              "$lt": 31
             },
             "type": "child"
           },
@@ -35,11 +35,13 @@
           "query": {
             "closed": true,
             "closed_on": {
-              "$gte": "{{period.start}}",
+              "$gte": "{{period.thirty_days_before_end_of_period}}"
+            },
+            "opened_on": {
               "$lte": "{{period.end}}"
             },
            "age_when_closed": {
-              "$lt": 30
+              "$lt": 31
             },
             "type": "child"
           },
@@ -49,23 +51,19 @@
       "numerator": [
         {
           "count": true,
-          "distinct": "case__case_id",
+          "distinct": "form_case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "calculation": {
-            "formula": "(meta_timeend - dob)/86400",
+            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
             "name": "age_at_visit"
           },
           "query": {
-            "meta_timeend": {
-              "$gte": "{{period.start}}",
-              "$lte": "{{period.end}}"
-            },
-            "dob": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "age_at_visit": {
-              "$lt": 30
+              "$lt": 31
             }
           },
           "source": "Child List Visit.csv"

@@ -7,28 +7,29 @@
       "numerator": [
         {
           "calculation": {
-            "formula": "(meta_timeend - dob)/86400",
+            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
             "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
+            "doc_type": "XFormInstance",
             "$and": [
               {
-                "server_computed__mvp_indicators_immediate_danger_sign_value": {
+                "computed__mvp_indicators_immediate_danger_sign_value": {
                   "$regex": "fever",
                   "$options": "i"
                 }
               },
               {
-                "server_computed__mvp_indicators_immediate_danger_sign_value": {
+                "computed__mvp_indicators_immediate_danger_sign_value": {
                   "$ne": "fever"
                 }
               }
@@ -48,28 +49,29 @@
       "denominator": [
         {
           "calculation": {
-            "formula": "(meta_timeend - dob)/86400",
+            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
             "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
+            "doc_type": "XFormInstance",
             "$and": [
               {
-                "server_computed__mvp_indicators_immediate_danger_sign_value": {
+                "computed__mvp_indicators_immediate_danger_sign_value": {
                   "$regex": "fever",
                   "$options": "i"
                 }
               },
               {
-                "server_computed__mvp_indicators_immediate_danger_sign_value": {
+                "computed__mvp_indicators_immediate_danger_sign_value": {
                   "$ne": "fever"
                 }
               }

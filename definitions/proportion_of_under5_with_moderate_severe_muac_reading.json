@@ -8,25 +8,25 @@
                 {
                     "calculation": [
                         {
-                            "formula": "(meta_timeend - dob)/86400",
+                            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
                             "name": "num_of_days"
                         },
                         {
-                            "formula": "(meta_timeend - last_muac)/86400",
+                            "formula": "(form_meta_timeend - computed__mvp_indicators_last_muac_value)/86400",
                             "name": "num_of_days_last_muac"
                         }
                     ],
                     "count": true,
                     "dataset_id": "77e796170c2f423fa920e85fad166f8d",
-                    "distinct": "case__case_id",
+                    "distinct": "form_case__case_id",
                     "query": {
-                        "cur_muac": {
+                        "computed__mvp_indicators_cur_muac_value": {
                             "$ne": ""
                         },
-						"last_muac": {
+						"computed__mvp_indicators_last_muac_value": {
                             "$ne": ""
                         },
-                        "meta_timeend": {
+                        "form_meta_timeend": {
                             "$gte": "{{period.start}}",
                             "$lte": "{{period.end}}"
                         },
@@ -45,25 +45,25 @@
                 {
                     "calculation": [
                         {
-                            "formula": "(meta_timeend - dob)/86400",
+                            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
                             "name": "num_of_days"
                         },
                         {
-                            "formula": "(meta_timeend - last_muac)/86400",
+                            "formula": "(form_meta_timeend - last_muac)/86400",
                             "name": "num_of_days_last_muac"
                         }
                     ],
                     "count": true,
                     "dataset_id": "77e796170c2f423fa920e85fad166f8d",
-                    "distinct": "case__case_id",
+                    "distinct": "form_case__case_id",
                     "query": {
-                        "cur_muac": {
+                        "computed__mvp_indicators_cur_muac_value": {
                             "$ne": ""
                         },
-                        "muac": {
+                        "computed__mvp_indicators_muac_value_": {
                             "$lte": 125
                         },
-                        "meta_timeend": {
+                        "form_meta_timeend": {
                             "$gte": "{{period.start}}",
                             "$lte": "{{period.end}}"
                         },

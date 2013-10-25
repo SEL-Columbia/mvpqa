@@ -12,9 +12,9 @@ class Definition(object):
     mapper_str = """
     function(){
         value = this;
-        key = this['{{case__case_id}}'];
-        if(isNaN(value["{{server_computed__mvp_indicators_num_other_positive_value}}"])){
-            value["{{server_computed__mvp_indicators_num_other_positive_value}}"] = 0;
+        key = this['{{form_case__case_id}}'];
+        if(isNaN(value["{{computed__mvp_indicators_num_other_positive_value}}"])){
+            value["{{computed__mvp_indicators_num_other_positive_value}}"] = 0;
         }
         emit(key,  value);
     }
@@ -23,13 +23,13 @@ class Definition(object):
     reducer_str = """
     function(key, values){
         values.sort(function(a, b){
-            a = a["{{meta_timeend}}"];
-            b = b["{{meta_timeend}}"];
+            a = a["{{form_meta_timeend}}"];
+            b = b["{{form_meta_timeend}}"];
             return a > b? -1: a < b? 1: 0;
         });
         var reducedValue = values[0];
-        if(isNaN(reducedValue["{{server_computed__mvp_indicators_num_other_positive_value}}"])){
-            reducedValue["{{server_computed__mvp_indicators_num_other_positive_value}}"] = 0;
+        if(isNaN(reducedValue["{{computed__mvp_indicators_num_other_positive_value}}"])){
+            reducedValue["{{computed__mvp_indicators_num_other_positive_value}}"] = 0;
         }
         return reducedValue;
     }
@@ -37,15 +37,16 @@ class Definition(object):
 
     query_str = """
     {"{{dataset_id_field}}": "{{dataset.dataset_id}}",
-    "{{meta_timeend}}": {
+    "{{doc_type}}": "XFormInstance",
+    "{{form_meta_timeend}}": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{server_computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0}
+    "{{computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0}
     }
     """
     aggregate_str = """
-    {"$group": {"_id": 0, "total": {"$sum": "$value.{{server_computed__mvp_indicators_num_other_positive_value}}"}}}
+    {"$group": {"_id": 0, "total": {"$sum": "$value.{{computed__mvp_indicators_num_other_positive_value}}"}}}
     """
 
     def __init__(self, db, dataset_id=None, dataset=None):
@@ -67,8 +68,8 @@ class Definition(object):
             mapper = Code(Template(self.mapper_str).render(fields))
             reducer = Code(Template(self.reducer_str).render(fields))
             query = json.loads(Template(self.query_str).render(fields))
-            query['%(meta_timeend)s' % fields]['$gte'] = period.start
-            query['%(meta_timeend)s' % fields]['$lte'] = period.end
+            query['%(form_meta_timeend)s' % fields]['$gte'] = period.start
+            query['%(form_meta_timeend)s' % fields]['$lte'] = period.end
             aggregate = json.loads(Template(self.aggregate_str).render(fields))
             results = self._db.observations.map_reduce(
                 mapper, reducer, 'myresults_malaria', query=query)

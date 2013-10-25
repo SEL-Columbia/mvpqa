@@ -1,6 +1,6 @@
 {
-  "description": "Proportion of Pregnant women reporting no Antenatal Care visit by 4 months of gestation this time period",
-  "name": "proportion_of_pregnant_reporting_anc_4months",
+  "description": "Proportion of Pregnant women reporting at least four (4) Antenatal Care visit by 8 months of gestation this time period",
+  "name": "proportion_of_pregnant_4anc_visits_by_8months",
   "type": "Maternal Health",
   "value": {
     "proportion": {
@@ -18,13 +18,9 @@
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
               },
-              "$or": [
-                    { "computed__mvp_indicators_cur_num_anc_value": 0},
-                    { "computed__mvp_indicators_cur_num_anc_value": ""}
-              ],
               "num_of_days": {
-                "$lte": 120,
-                "$gt": -1
+                "$lte": 30,
+                "$gte": 0
               }
             },
             "distinct": "form_case__case_id",
@@ -46,8 +42,8 @@
                 "$lte": "{{period.end}}"
               },
               "num_of_days": {
-                "$lte": 120,
-                "$gt": -1
+                "$lte": 30,
+                "$gte": 0
               }
             },
             "distinct": "form_case__case_id",

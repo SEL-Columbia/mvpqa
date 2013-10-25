@@ -22,7 +22,7 @@
             },
             "source": "case_export_all.csv"
             }
-        ], 
+        ],
         "denominator": [
           {
             "count": true,
@@ -39,8 +39,8 @@
               "type": "child"
             },
             "source": "case_export_all.csv"
-          }    
-        ] 
+          }
+        ]
     }
   }
 }

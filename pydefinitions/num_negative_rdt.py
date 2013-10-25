@@ -11,17 +11,18 @@ class Definition(object):
 
     query_str = """
     {"{{dataset_id_field}}": "{{dataset.dataset_id}}",
-    "{{meta_timeend}}": {
+    "{{doc_type}}": "XFormInstance",
+    "{{form_meta_timeend}}": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{server_computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
+    "{{computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
     "{{num_rdt_other}}": {"$gt": 0}
     }
     """
     project_str = """
     {"$project": {
-        "{{server_computed__mvp_indicators_num_other_positive_value}}": 1,
+        "{{computed__mvp_indicators_num_other_positive_value}}": 1,
         "{{num_rdt_other}}": 1
     }}
     """
@@ -29,7 +30,7 @@ class Definition(object):
     {"$group":
     {"_id": 0, "total_num_rdt_other":
         {"$sum": "${{num_rdt_other}}"},
-    "total_num_other_positive": {"$sum": "${{server_computed__mvp_indicators_num_other_positive_value}}"}
+    "total_num_other_positive": {"$sum": "${{computed__mvp_indicators_num_other_positive_value}}"}
     }}
     """
     project_str2 = """
@@ -59,9 +60,9 @@ class Definition(object):
             fields['dataset_id_field'] = fields[DATASET_ID]
             fields['period'] = period
             query = json.loads(Template(self.final_str).render(fields))
-            meta_timeend = '%(meta_timeend)s' % fields
-            query[0]['$match'][meta_timeend]['$gte'] = period.start
-            query[0]['$match'][meta_timeend]['$lte'] = period.end
+            form_meta_timeend = '%(form_meta_timeend)s' % fields
+            query[0]['$match'][form_meta_timeend]['$gte'] = period.start
+            query[0]['$match'][form_meta_timeend]['$lte'] = period.end
             aggregate_value = self._db.observations.aggregate(query)
             value = aggregate_value['result'][0]['total_difference']
         return value

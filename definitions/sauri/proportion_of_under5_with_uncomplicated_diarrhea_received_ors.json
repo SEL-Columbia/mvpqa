@@ -8,20 +8,21 @@
         {
 	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400",
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea"
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "diarrhea"
           },
           "source": "Child List Visit.csv"
         }
@@ -30,21 +31,22 @@
         {
 	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400",
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "diarrhea",
-            "server_computed__mvp_indicators_diarrhea_medication_value": {
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "diarrhea",
+            "computed__mvp_indicators_diarrhea_medication_value": {
                 "$regex": "ors",
                 "$options": "i"
             }

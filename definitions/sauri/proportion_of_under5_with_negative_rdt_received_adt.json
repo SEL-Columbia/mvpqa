@@ -8,22 +8,23 @@
         {
 	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400",
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
-            "server_computed__mvp_indicators_rdt_result_value": "negative",
-            "server_computed__mvp_indicators_fever_medication_value": {
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "computed__mvp_indicators_rdt_result_value": "negative",
+            "computed__mvp_indicators_fever_medication_value": {
 				  "$regex": "anti_malarial",
 				  "$options": "i"
             }
@@ -35,22 +36,23 @@
         {
 	  "calculation":
             {
-              "formula": "(meta_timeend - dob)/86400",
+              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
               "name": "num_of_days"
           },
           "count": true,
-          "distinct": "case__case_id",
+          "distinct": "form_case__case_id",
           "dataset_id": "77e796170c2f423fa920e85fad166f8d",
           "query": {
-            "meta_timeend": {
+            "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
               "$lt": 1825
             },
-            "server_computed__mvp_indicators_immediate_danger_sign_value": "fever",
-            "server_computed__mvp_indicators_rdt_result_value": "negative"
+            "doc_type": "XFormInstance",
+            "computed__mvp_indicators_immediate_danger_sign_value": "fever",
+            "computed__mvp_indicators_rdt_result_value": "negative"
           },
           "source": "Child List Visit.csv"
         }

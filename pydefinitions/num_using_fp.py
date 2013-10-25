@@ -11,24 +11,24 @@ class Definition(object):
 
     query_str = """
     {"{{dataset_id_field}}": "{{dataset.dataset_id}}",
-    "{{meta_timeend}}": {
+    "{{form_meta_timeend}}": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{num_using_fp}}": {"$gte": 0}
+    "{{computed__mvp_indicators_num_using_fp_value}}": {"$gte": 0}
     }
     """
     sort_str = """
     {"$sort": {
-        "{{case__case_id}}": 1,
-        "{{meta_timeend}}": -1
+        "{{form_case__case_id}}": 1,
+        "{{form_meta_timeend}}": -1
     }}
     """
     group_str = """
     {"$group":
-    {"_id": "{{case__case_id}}",
+    {"_id": "{{form_case__case_id}}",
     "num_using_fp":
-        {"$first": "${{num_using_fp}}"}
+        {"$first": "${{computed__mvp_indicators_num_using_fp_value}}"}
     }},
     {"$group":
         {"_id": null,
@@ -55,9 +55,9 @@ class Definition(object):
             fields['dataset_id_field'] = fields[DATASET_ID]
             fields['period'] = period
             query = json.loads(Template(self.final_str).render(fields))
-            meta_timeend = '%(meta_timeend)s' % fields
-            query[0]['$match'][meta_timeend]['$gte'] = period.start
-            query[0]['$match'][meta_timeend]['$lte'] = period.end
+            form_meta_timeend = '%(form_meta_timeend)s' % fields
+            query[0]['$match'][form_meta_timeend]['$gte'] = period.start
+            query[0]['$match'][form_meta_timeend]['$lte'] = period.end
             aggregate_value = self._db.observations.aggregate(query)
             value = aggregate_value['result'][0]['total_num_using_fp']
         return value
