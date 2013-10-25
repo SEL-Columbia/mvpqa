@@ -36,7 +36,7 @@ def _get_indicator_definitions(indicator_name=None, site_name=None):
         with open(full_path) as f:
             obj = json.load(f)
             INDICATOR_DEFS.append(obj)
-        return INDICATOR_DEFS
+        return sorted(INDICATOR_DEFS, key=lambda k: k['type'])
 
     for filename in os.listdir(DEFINITIONS_DIR):
         if filename.endswith('.json'):
@@ -76,6 +76,7 @@ def _generate_indicator_export(name, period, indicator_name=None):
             value, numerator, denominator = \
                 bi.get_indicator_value(indicator_def, period)
         except OperationFailure, e:
+            print "Failure on: %s" % indicator_def['name']
             print e
         else:
             RESULTS.append(

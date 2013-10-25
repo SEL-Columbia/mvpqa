@@ -13,8 +13,8 @@ class Definition(object):
     function(){
         value = this;
         key = this['{{form_case__case_id}}'];
-        if(isNaN(value["{{server_computed__mvp_indicators_num_antimalarials_other_value}}"])){
-            value["{{server_computed__mvp_indicators_num_antimalarials_other_value}}"] = 0;
+        if(isNaN(value["{{computed__mvp_indicators_num_antimalarials_other_value}}"])){
+            value["{{computed__mvp_indicators_num_antimalarials_other_value}}"] = 0;
         }
         emit(key,  value);
     }
@@ -28,8 +28,8 @@ class Definition(object):
             return a > b? -1: a < b? 1: 0;
         });
         var reducedValue = values[0];
-        if(isNaN(reducedValue["{{server_computed__mvp_indicators_num_antimalarials_other_value}}"])){
-            reducedValue["{{server_computed__mvp_indicators_num_antimalarials_other_value}}"] = 0;
+        if(isNaN(reducedValue["{{computed__mvp_indicators_num_antimalarials_other_value}}"])){
+            reducedValue["{{computed__mvp_indicators_num_antimalarials_other_value}}"] = 0;
         }
         return reducedValue;
     }
@@ -43,12 +43,12 @@ class Definition(object):
                 "$lte": "{{period.end}}"
                 },
     "{{computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0}
-    ,"{{server_computed__mvp_indicators_num_antimalarials_other_value}}": {"$gt": 0}
+    ,"{{computed__mvp_indicators_num_antimalarials_other_value}}": {"$gt": 0}
     }
     """
     aggregate_str = """
     {"$group":
-    {"_id": 0, "total": {"$sum": "$value.{{server_computed__mvp_indicators_num_antimalarials_other_value}}"}}}
+    {"_id": 0, "total": {"$sum": "$value.{{computed__mvp_indicators_num_antimalarials_other_value}}"}}}
     """
 
     def __init__(self, db, dataset_id=None, dataset=None):

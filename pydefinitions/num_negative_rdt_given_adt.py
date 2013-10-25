@@ -17,19 +17,19 @@ class Definition(object):
                 "$lte": "{{period.end}}"
                 },
     "{{computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
-    "{{server_computed__mvp_indicators_num_antimalarials_other_value}}": {"$gt": 0}
+    "{{computed__mvp_indicators_num_antimalarials_other_value}}": {"$gt": 0}
     }
     """
     project_str = """
     {"$project": {
         "{{computed__mvp_indicators_num_other_positive_value}}": 1,
-        "{{server_computed__mvp_indicators_num_antimalarials_other_value}}": 1
+        "{{computed__mvp_indicators_num_antimalarials_other_value}}": 1
     }}
     """
     aggregate_str = """
     {"$group":
     {"_id": 0, "total_num_antimalarials":
-        {"$sum": "${{server_computed__mvp_indicators_num_antimalarials_other_value}}"},
+        {"$sum": "${{computed__mvp_indicators_num_antimalarials_other_value}}"},
     "total_num_other_positive": {"$sum": "${{computed__mvp_indicators_num_other_positive_value}}"}
     }}
     """
@@ -64,5 +64,7 @@ class Definition(object):
             query[0]['$match'][form_meta_timeend]['$gte'] = period.start
             query[0]['$match'][form_meta_timeend]['$lte'] = period.end
             aggregate_value = self._db.observations.aggregate(query)
+            if not aggregate_value['result']:
+                return 0
             value = aggregate_value['result'][0]['total_difference']
         return value

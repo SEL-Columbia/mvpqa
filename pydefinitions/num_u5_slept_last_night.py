@@ -15,7 +15,7 @@ class Definition(object):
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
                 },
-    "{{malaria_assessment_num_u5_slept_hh_last_night}}": {"$gte": 0}
+    "{{form_malaria_assessment_num_u5_slept_hh_last_night}}": {"$gte": 0}
     }
     """
     sort_str = """
@@ -27,12 +27,12 @@ class Definition(object):
     group_str = """
     {"$group":
     {"_id": "{{form_case__case_id}}",
-    "malaria_assessment_num_u5_slept_hh_last_night":
-        {"$first": "${{malaria_assessment_num_u5_slept_hh_last_night}}"}
+    "malaria_assessment_num_u5":
+        {"$first": "${{form_malaria_assessment_num_u5_slept_hh_last_night}}"}
     }},
     {"$group":
         {"_id": null,
-        "total_num": {"$sum": "$malaria_assessment_num_u5_slept_hh_last_night"}}}
+        "total_num": {"$sum": "$malaria_assessment_num_u5"}}}
     """
     final_str = "[%s]" % u",".join(
         [u'{"$match": %s}' % query_str,
@@ -59,5 +59,7 @@ class Definition(object):
             query[0]['$match'][form_meta_timeend]['$gte'] = period.start
             query[0]['$match'][form_meta_timeend]['$lte'] = period.end
             aggregate_value = self._db.observations.aggregate(query)
+            if not aggregate_value['result']:
+                return 0
             value = aggregate_value['result'][0]['total_num']
         return value
