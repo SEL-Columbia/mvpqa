@@ -19,6 +19,13 @@ class Definition(object):
     }
     """
     sort_str = """
+    {"$project": {
+        "{{dataset_id_field}}": 1,
+        "{{form_case__case_id}}": 1,
+        "{{form_meta_timeend}}": 1,
+        "{{computed__mvp_indicators_num_ec_value}}":1
+        }
+    },
     {"$sort": {
         "{{form_case__case_id}}": 1,
         "{{form_meta_timeend}}": -1
