@@ -36,7 +36,7 @@
             "$lte": "{{period.end}}"
           },
           "doc_type": "XFormInstance",
-          "computed__mvp_indicators_close_reason_value": "stillbirth"
+          "computed__mvp_indicators_termination_reason_value": "stillbirth"
         },
         "source": "Pregnancy Outcome.csv"
       }
