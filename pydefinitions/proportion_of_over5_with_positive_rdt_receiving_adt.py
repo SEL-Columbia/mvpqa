@@ -28,6 +28,8 @@ class Definition(object):
         def2 = num_other_positive.Definition(
             self._db, dataset=self.dataset)
         denominator = def2.get_value(period)
+        if numerator is None or denominator is None:
+            return None, numerator, denominator
         if denominator == 0:
             value = 0
         else:
