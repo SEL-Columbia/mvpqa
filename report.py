@@ -78,6 +78,10 @@ def _generate_indicator_export(name, period, indicator_name=None):
         except OperationFailure, e:
             print "Failure on: %s" % indicator_def['name']
             print e
+        except Exception, e:
+            print "Failure on: %s" % indicator_def['name']
+            print e
+            sys.exit(0)
         else:
             RESULTS.append(
                 (indicator_def['type'], indicator_def['description'],
