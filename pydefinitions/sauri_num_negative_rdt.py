@@ -17,19 +17,19 @@ class Definition(object):
                 "$lte": "{{period.end}}"
                 },
     "{{computed__mvp_indicators_num_other_positive_value}}": {"$gt": 0},
-    "{{form_num_rdt_other}}": {"$gt": 0}
+    "{{form_num_rdt_other_}}": {"$gt": 0}
     }
     """
     project_str = """
     {"$project": {
         "{{computed__mvp_indicators_num_other_positive_value}}": 1,
-        "{{form_num_rdt_other}}": 1
+        "{{form_num_rdt_other_}}": 1
     }}
     """
     aggregate_str = """
     {"$group":
     {"_id": 0, "total_num_rdt_other":
-        {"$sum": "${{form_num_rdt_other}}"},
+        {"$sum": "${{form_num_rdt_other_}}"},
     "total_num_other_positive": {"$sum": "${{computed__mvp_indicators_num_other_positive_value}}"}
     }}
     """

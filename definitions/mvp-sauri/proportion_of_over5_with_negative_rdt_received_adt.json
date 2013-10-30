@@ -1,0 +1,12 @@
+{
+  "description": "Proportion of Over-5's with negative RDT result who received antimalarial/ADT medication",
+  "name": "proportion_of_over5_with_negative_rdt_received_adt",
+  "type": "Malaria",
+  "value": {
+    "python": {
+        "name": "sauri_proportion_of_over5_with_negative_rdt_receiving_adt",
+        "source": "Household Visit.csv",
+        "dataset_id": "5943c773179c4f0aa92620883c2bfa14"
+    }
+  }
+}
