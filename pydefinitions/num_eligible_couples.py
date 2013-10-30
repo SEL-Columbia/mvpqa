@@ -66,5 +66,7 @@ class Definition(object):
             query[0]['$match'][form_meta_timeend]['$gte'] = period.start
             query[0]['$match'][form_meta_timeend]['$lte'] = period.end
             aggregate_value = self._db.observations.aggregate(query)
+            if not aggregate_value['result']:
+                return 0
             value = aggregate_value['result'][0]['total_num_ec']
         return value
