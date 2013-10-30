@@ -5,7 +5,7 @@ import requests
 from requests.auth import HTTPDigestAuth
 from tempfile import NamedTemporaryFile
 from urlparse import urljoin
-from zipfile import ZipFile
+from zipfile import ZipFile, BadZipfile
 
 from config.settings import COMMCARE_URL, COMMCARE_USERNAME, COMMCARE_PASSWORD
 from utils import get_form_xmlns
@@ -35,15 +35,19 @@ def download_cases(domain):
     case_path = '/a/%(domain)s/reports/download/cases/?format=csv' % {
         'domain': domain}
     f = download_from_commcare(case_path)
-    z = ZipFile(f, 'r')
-    zdst = os.path.join('data', domain, 'latest')
-    src = os.path.join(zdst, 'Case.csv')
-    dst = os.path.join(zdst, 'case_export_all.csv')
-    if 'Case.csv' in z.NameToInfo:
-        z.extract(z.NameToInfo['Case.csv'], zdst)
-        if os.path.exists(src):
-            os.rename(src, dst)
-            print u"Successfully downloaded case_export_all.csv"
+    try:
+        z = ZipFile(f, 'r')
+    except BadZipfile:
+        print f.read()
+    else:
+        zdst = os.path.join('data', domain, 'latest')
+        src = os.path.join(zdst, 'Case.csv')
+        dst = os.path.join(zdst, 'case_export_all.csv')
+        if 'Case.csv' in z.NameToInfo:
+            z.extract(z.NameToInfo['Case.csv'], zdst)
+            if os.path.exists(src):
+                os.rename(src, dst)
+                print u"Successfully downloaded case_export_all.csv"
 
 
 def download_custom_reports(domain, report_id, report_name):
@@ -58,16 +62,20 @@ def download_custom_reports(domain, report_id, report_name):
     url_path = "/a/%(domain)s/reports/export/custom/%(id)s/download/"\
         "?format=csv" % {'domain': domain, 'id': report_id}
     f = download_from_commcare(url_path)
-    z = ZipFile(f, 'r')
-    zdst = os.path.join('data', domain, 'latest')
-    dst = os.path.join(zdst, report_name)
-    if z.NameToInfo.keys():
-        filename = z.NameToInfo.keys()[0]
-        src = os.path.join(zdst, filename)
-        z.extract(z.NameToInfo[filename], zdst)
-        if os.path.exists(src):
-            os.rename(src, dst)
-            print u"Successfully downloaded %s" % report_name
+    try:
+        z = ZipFile(f, 'r')
+    except BadZipfile:
+        print f.read()
+    else:
+        zdst = os.path.join('data', domain, 'latest')
+        dst = os.path.join(zdst, report_name)
+        if z.NameToInfo.keys():
+            filename = z.NameToInfo.keys()[0]
+            src = os.path.join(zdst, filename)
+            z.extract(z.NameToInfo[filename], zdst)
+            if os.path.exists(src):
+                os.rename(src, dst)
+                print u"Successfully downloaded %s" % report_name
 
 
 def download_form_data(domain, form_xmlns, report_name):
@@ -78,16 +86,20 @@ def download_form_data(domain, form_xmlns, report_name):
                 "?export_tag=%%22%(form_xmlns)s%%22"
                 "&format=csv" % {'domain': domain, 'form_xmlns': form_xmlns})
     f = download_from_commcare(url_path)
-    z = ZipFile(f, 'r')
-    zdst = os.path.join('data', domain, 'latest')
-    dst = os.path.join(zdst, report_name)
-    filename = '#.csv'
-    if '#.csv' in z.NameToInfo:
-        src = os.path.join(zdst, filename)
-        z.extract(z.NameToInfo[filename], zdst)
-        if os.path.exists(src):
-            os.rename(src, dst)
-            print u"Successfully downloaded %s" % report_name
+    try:
+        z = ZipFile(f, 'r')
+    except BadZipfile:
+        print f.read()
+    else:
+        zdst = os.path.join('data', domain, 'latest')
+        dst = os.path.join(zdst, report_name)
+        filename = '#.csv'
+        if '#.csv' in z.NameToInfo:
+            src = os.path.join(zdst, filename)
+            z.extract(z.NameToInfo[filename], zdst)
+            if os.path.exists(src):
+                os.rename(src, dst)
+                print u"Successfully downloaded %s" % report_name
 
 
 def download_pregancy_visits(domain, report='pregnancy-visit',
