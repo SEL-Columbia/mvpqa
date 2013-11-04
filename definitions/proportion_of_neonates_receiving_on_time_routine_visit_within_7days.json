@@ -53,10 +53,16 @@
           "count": true,
           "distinct": "form_case__case_id",
           "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
-          "calculation": {
-            "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
-            "name": "age_at_visit"
-          },
+          "calculation": [
+              {
+                "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
+                "name": "age_at_visit"
+              },
+              {
+                  "formula": "((date(\"{{period.end}}\") - form_meta_timeend)/86400)",
+                  "name": "last_7_days_{{period.end|datetimeformat('%Y%m%d')}}"
+              }
+          ],
           "query": {
             "form_meta_timeend": {
               "$gte": "{{period.start}}",
@@ -64,7 +70,9 @@
             },
             "age_at_visit": {
               "$lt": 31
-            }
+            },
+            "last_7_days_{{period.end|datetimeformat('%Y%m%d')}}":
+                    {"$lte": 7}
           },
           "source": "Child List Visit.csv"
         }
