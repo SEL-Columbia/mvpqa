@@ -1,7 +1,6 @@
 import os
 import json
 
-from jinja2 import Template
 from jinja2 import Environment
 
 from pymongo import MongoClient
@@ -90,6 +89,17 @@ class BambooIndicator(object):
                 globals(), locals(), ['Definition'], -1)
             return m.Definition
 
+    def _add_calculation(self, calculation, dataset, period):
+        name = env.from_string(calculation['name'])\
+            .render(period=period)
+        formula = env.from_string(calculation['formula'])\
+            .render(period=period)
+        calc_exists = self._calculation_exists(
+            name, dataset)
+        if not calc_exists:
+            dataset.add_calculation(
+                name=name, formula=formula)
+
     def _get_sum(self, key, value, period):
         sum_value = 0
         for v in value[key]:
@@ -106,22 +116,12 @@ class BambooIndicator(object):
                 # check or create calculations
                 if isinstance(v['calculation'], list):
                     for calculation in v['calculation']:
-                        calc_exists = self._calculation_exists(
-                            calculation['name'], dataset)
-                        if not calc_exists:
-                            dataset.add_calculation(
-                                name=calculation['name'],
-                                formula=calculation['formula'])
+                        self._add_calculation(calculation, dataset, period)
                 if isinstance(v['calculation'], dict):
-                    if not self._calculation_exists(
-                            v['calculation']['name'], dataset):
-                        calculation = v['calculation']
-                        dataset.add_calculation(
-                            name=calculation['name'],
-                            formula=calculation['formula'])
+                    self._add_calculation(v['calculation'], dataset, period)
             if 'query' in v:
                 query_string = json.dumps(v['query'])
-                template = Template(query_string)
+                template = env.from_string(query_string)
                 query_string = template.render(period=period)
                 v['query'] = json.loads(query_string)
                 params['query'] = v['query']
