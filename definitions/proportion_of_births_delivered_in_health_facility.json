@@ -28,10 +28,6 @@
             "count": true,
             "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
             "query": {
-              "opened_on": {
-                "$gte": "{{period.start}}",
-                "$lte": "{{period.end}}"
-              },
               "d_dob_calc": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
