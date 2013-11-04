@@ -14,6 +14,7 @@
             "dataset_id": "1591fe35473644a0b776590127ed6890",
             "query": {
               "computed__mvp_indicators_pregnancy_edd_value": {"$ne": ""},
+              "computed__mvp_indicators_cur_num_anc_value": {"$gt": 3},
               "form_meta_timeend": {
                 "$gte": "{{period.start}}",
                 "$lte": "{{period.end}}"
