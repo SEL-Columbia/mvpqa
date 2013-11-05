@@ -32,8 +32,10 @@ def download_cases(domain):
     """Downloads cases,referral,user csv zip file form commcare.
     The extracted Case.csv is placed in data/DOMAIN/latest/case_export_all.csv
     """
-    case_path = '/a/%(domain)s/reports/download/cases/?format=csv' % {
-        'domain': domain}
+    case_path = '/a/%(domain)s/reports/download/cases/%(params)s' % {
+        'domain': domain,
+        'params': u'?format=csv&include_closed=true'
+    }
     f = download_from_commcare(case_path)
     try:
         z = ZipFile(f, 'r')
