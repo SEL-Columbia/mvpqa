@@ -51,6 +51,8 @@ class BambooIndicator(object):
         result = result_num = result_den = None
         if 'sum' in value:
             result = self._get_sum('sum', value, period)
+        if 'aggregations' in value:
+            result = self._get_aggregate('aggregations', value, period)
 
         if 'proportion' in value:
             proportion = value['proportion']
@@ -103,6 +105,9 @@ class BambooIndicator(object):
     def _get_sum(self, key, value, period):
         sum_value = 0
         for v in value[key]:
+            if 'aggregations' in v:
+                sum_value += self._get_aggregate('aggregations', v, period)
+                continue
             dataset_id = v['dataset_id']
             # dataset_id form sources.json is most recent
             if dataset_id != self._sources[v['source']]\
@@ -132,5 +137,67 @@ class BambooIndicator(object):
             val = dataset.get_data(**params)
             if isinstance(val, dict):
                 raise Exception("Bamboo Error: %s" % val)
-            sum_value += dataset.get_data(**params)
+            sum_value += val
+        return sum_value
+
+    def _get_aggregate(self, key, value, period):
+        sum_value = 0
+        for v in value[key]:
+            dataset_id = v['dataset_id']
+            # dataset_id form sources.json is most recent
+            if dataset_id != self._sources[v['source']]\
+                    and self._sources[v['source']] != "":
+                dataset_id = self._sources[v['source']]
+            dataset = Dataset(
+                dataset_id=dataset_id, connection=self.connection)
+
+            params = {}
+            if 'calculation' in v:
+                # check or create calculations
+                if isinstance(v['calculation'], list):
+                    for calculation in v['calculation']:
+                        self._add_calculation(calculation, dataset, period)
+                if isinstance(v['calculation'], dict):
+                    self._add_calculation(v['calculation'], dataset, period)
+            if 'query' in v:
+                query_string = json.dumps(v['query'])
+                template = env.from_string(query_string)
+                query_string = template.render(period=period)
+                v['query'] = json.loads(query_string)
+                params['query'] = v['query']
+            # if 'count' in v and 'query' in v:
+            #     params['count'] = v['count']
+            if 'distinct' in v:
+                params['distinct'] = v['distinct']
+            data = dataset.get_data(format='csv', **params)
+            # create a aggregate dataset
+            aggr_dataset = Dataset(
+                content=data,
+                data_format='csv',
+                connection=self.connection)
+            if 'aggregate' in v:
+                # check or create calculations
+                if isinstance(v['aggregate'], list):
+                    for calculation in v['aggregate']:
+                        calc = aggr_dataset.add_calculation(
+                            name=calculation['name'],
+                            formula=calculation['formula']
+                        )
+                        if calc:
+                            aggr_ds = aggr_dataset.get_aggregations()['']
+                            k = aggr_ds.get_data()
+                            sum_value += k[0][calculation['name']]
+                            aggr_ds.delete()
+                if isinstance(v['aggregate'], dict):
+                    calculation = v['aggregate']
+                    calc = aggr_dataset.add_calculation(
+                        name=calculation['name'],
+                        formula=calculation['formula']
+                    )
+                    if calc:
+                        aggr_ds = aggr_dataset.get_aggregations()['']
+                        k = aggr_ds.get_data()
+                        sum_value += k[0][calculation['name']]
+                        aggr_ds.delete()
+            aggr_dataset.delete()
         return sum_value
