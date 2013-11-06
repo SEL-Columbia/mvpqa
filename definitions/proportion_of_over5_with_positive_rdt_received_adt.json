@@ -3,10 +3,49 @@
   "name": "proportion_of_over5_with_positive_rdt_received_adt",
   "type": "Malaria",
   "value": {
-    "python": {
-        "name": "proportion_of_over5_with_positive_rdt_receiving_adt",
-        "source": "Household Visit.csv",
-        "dataset_id": "5943c773179c4f0aa92620883c2bfa14"
+    "proportion": {
+        "numerator": [{
+            "aggregations":
+                [{
+                    "count": true,
+                    "dataset_id": "",
+                    "aggregate": {
+                        "name": "sum_antimalaria_other_positive",
+                        "formula": "sum(computed__mvp_indicators_num_antimalarials_other_value)"
+                    },
+                    "query":{
+                        "form_meta_timeend": {
+                            "$gte": "{{period.start}}",
+                            "$lte": "{{period.end}}"
+                        },
+                        "computed__mvp_indicators_num_other_positive_value":{
+                            "$gt": 0
+                        }
+                    },
+                    "source": "Household Visit.csv"
+                }]
+        }],
+        "denominator": [{
+            "aggregations":
+                [{
+                    "count": true,
+                    "dataset_id": "",
+                    "aggregate": {
+                        "name": "sum_other_positive",
+                        "formula": "sum(computed__mvp_indicators_num_other_positive_value)"
+                    },
+                    "query":{
+                        "form_meta_timeend": {
+                            "$gte": "{{period.start}}",
+                            "$lte": "{{period.end}}"
+                        },
+                        "computed__mvp_indicators_num_other_positive_value":{
+                            "$gt": 0
+                        }
+                    },
+                    "source": "Household Visit.csv"
+                }]
+        }]
     }
   }
 }
