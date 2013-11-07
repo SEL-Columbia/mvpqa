@@ -103,7 +103,7 @@ class BambooIndicator(object):
                 name=name, formula=formula)
             if not calc:
                 raise Exception(
-                    u"Failed to add calculation %s: %s" % name, formula)
+                    u"Failed to add calculation %s: %s" % (name, formula))
 
     def _get_sum(self, key, value, period):
         sum_value = 0
