@@ -99,8 +99,11 @@ class BambooIndicator(object):
         calc_exists = self._calculation_exists(
             name, dataset)
         if not calc_exists:
-            dataset.add_calculation(
+            calc = dataset.add_calculation(
                 name=name, formula=formula)
+            if not calc:
+                raise Exception(
+                    u"Failed to add calculation %s: %s" % name, formula)
 
     def _get_sum(self, key, value, period):
         sum_value = 0
@@ -170,6 +173,9 @@ class BambooIndicator(object):
             if 'distinct' in v:
                 params['distinct'] = v['distinct']
             data = dataset.get_data(format='csv', **params)
+            if data.strip() == '':
+                # no data to create a dataset - skip
+                continue
             # create a aggregate dataset
             aggr_dataset = Dataset(
                 content=data,
@@ -186,7 +192,11 @@ class BambooIndicator(object):
                         if calc:
                             aggr_ds = aggr_dataset.get_aggregations()['']
                             k = aggr_ds.get_data()
-                            sum_value += k[0][calculation['name']]
+                            val = k[0][calculation['name']]
+                            if isinstance(val, basestring):
+                                raise ValueError("Dataset %s return %s"
+                                                 % (aggr_ds.id, val))
+                            sum_value += val
                             aggr_ds.delete()
                 if isinstance(v['aggregate'], dict):
                     calculation = v['aggregate']
@@ -197,7 +207,11 @@ class BambooIndicator(object):
                     if calc:
                         aggr_ds = aggr_dataset.get_aggregations()['']
                         k = aggr_ds.get_data()
-                        sum_value += k[0][calculation['name']]
+                        val = k[0][calculation['name']]
+                        if isinstance(val, basestring):
+                            raise ValueError("Dataset %s return %s"
+                                             % (aggr_ds.id, val))
+                        sum_value += val
                         aggr_ds.delete()
             aggr_dataset.delete()
         return sum_value
