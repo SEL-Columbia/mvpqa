@@ -60,7 +60,7 @@
                         "computed__mvp_indicators_cur_muac_value": {
                             "$ne": ""
                         },
-                        "computed__mvp_indicators_muac_value_": {
+                        "computed__mvp_indicators_muac_value": {
                             "$lte": 125
                         },
                         "form_meta_timeend": {

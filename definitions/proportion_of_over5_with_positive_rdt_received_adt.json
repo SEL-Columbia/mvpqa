@@ -18,6 +18,9 @@
                             "$gte": "{{period.start}}",
                             "$lte": "{{period.end}}"
                         },
+                        "computed__mvp_indicators_num_antimalarials_other_value":{
+                            "$gt": 0
+                        },
                         "computed__mvp_indicators_num_other_positive_value":{
                             "$gt": 0
                         }
