@@ -18,7 +18,7 @@
             "closed": false,
             "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}": {
                 "$gte": 180,
-                "$lte": 1825
+                "$lt": 1825
             },
             "opened_on": {
               "$lte": "{{period.end}}"
@@ -44,7 +44,7 @@
             },
             "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}": {
                 "$gte": 180,
-                "$lte": 1825
+                "$lt": 1825
             },
             "opened_on": {
               "$lte": "{{period.end}}"
@@ -71,17 +71,17 @@
           "distinct": "form_case__case_id",
           "query": {
             "computed__mvp_indicators_cur_muac_value": {
-              "$gt": 0
+              "$ne": ""
             },
             "computed__mvp_indicators_last_muac_value": {
-              "$gt": 0
+              "$ne": ""
             },
             "form_meta_timeend": {
               "$gte": "{{period.start}}",
               "$lte": "{{period.end}}"
             },
             "num_of_days": {
-              "$gt": 180,
+              "$gte": 180,
               "$lt": 1825
             },
             "num_of_days_last_muac": {
