@@ -8,11 +8,17 @@
         {
           "count": true,
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
+          "calculation": [
+              {
+                  "formula": "((date(\"{{period.end}}\") - d_dob_calc)/86400)",
+                  "name": "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}"
+              }
+          ],
           "query": {
             "closed": false,
-            "d_dob_calc": {
-              "$gt": "{{period.five_years_before_end_of_period}}",
-              "$lte": "{{period.six_months_before_end_of_period}}"
+            "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}": {
+                "$gte": 180,
+                "$lte": 1825
             },
             "opened_on": {
               "$lte": "{{period.end}}"
@@ -26,13 +32,19 @@
           "dataset_id": "111bd86e63714f6fbdd42e4236675be4",
           "query": {
             "closed": true,
+          "calculation": [
+              {
+                  "formula": "((date(\"{{period.end}}\") - d_dob_calc)/86400)",
+                  "name": "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}"
+              }
+          ],
             "closed_on": {
               "$gt": "{{period.thirty_days_before_end_of_period}}",
               "$lte": "{{period.end}}"
             },
-            "d_dob_calc": {
-              "$gt": "{{period.five_years_before_end_of_period}}",
-              "$lt": "{{period.six_months_before_end_of_period}}"
+            "num_days_as_of_{{period.end|datetimeformat('%Y%m%d')}}": {
+                "$gte": 180,
+                "$lte": 1825
             },
             "opened_on": {
               "$lte": "{{period.end}}"
@@ -50,7 +62,7 @@
               "name": "num_of_days"
             },
             {
-              "formula": "(form_meta_timeend - last_muac)/86400",
+              "formula": "(form_meta_timeend - computed__mvp_indicators_last_muac_value)/86400",
               "name": "num_of_days_last_muac"
             }
           ],
