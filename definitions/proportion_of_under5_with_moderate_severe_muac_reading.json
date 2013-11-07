@@ -47,10 +47,6 @@
                         {
                             "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
                             "name": "num_of_days"
-                        },
-                        {
-                            "formula": "(form_meta_timeend - last_muac)/86400",
-                            "name": "num_of_days_last_muac"
                         }
                     ],
                     "count": true,
@@ -70,9 +66,6 @@
                         "num_of_days": {
                             "$gt": 180,
                             "$lt": 1825
-                        },
-                        "num_of_days_last_muac": {
-                            "$lt": 90
                         }
                     },
                     "source": "Child List Visit.csv"
