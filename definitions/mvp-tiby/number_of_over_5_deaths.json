@@ -8,7 +8,7 @@
         "count": true,
         "dataset_id": "0079a17a335e48e09dd63c8359f88cd9",
         "query": {
-          "form_date_of_death": {
+          "form_dod": {
             "$gte": "{{period.start}}",
             "$lte": "{{period.end}}"
           },
