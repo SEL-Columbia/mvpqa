@@ -8,7 +8,7 @@
         {
 	  "calculation":
             {
-              "formula": "(form_meta_timeend - computed__mvp_indicators_child_dob_value)/86400",
+              "formula": "(form_meta_timeend - form_dob)/86400",
               "name": "num_of_days"
           },
           "count": true,

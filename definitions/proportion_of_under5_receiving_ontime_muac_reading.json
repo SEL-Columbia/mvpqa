@@ -62,7 +62,7 @@
               "name": "num_of_days"
             },
             {
-              "formula": "(form_meta_timeend - computed__mvp_indicators_last_muac_value)/86400",
+              "formula": "(form_meta_timeend - form_last_muac)/86400",
               "name": "num_of_days_last_muac"
             }
           ],
